@@ -20,7 +20,7 @@
           <th>URL</th>
           <th>HTTP method</th>
           <th>Request body data format</th>
-          <th>Resonse body data format</th>
+          <th>Response body data format</th>
         </tr>
       </thead>
       <tbody>
@@ -32,35 +32,41 @@
           <td>
             JSON object holding data about all movies.Example:
             <p>
-              {name:"titanic",director:{name:"James
-              Cameron",bio:"Canadian",dob:"Aug 16,1954"} genre:"Romance"}
+              {{Title:"Titanic", Description:"The movie is about the 1912
+              sinking of the RMS Titanic. It stars Kate Winslet and Leonardo
+              DiCaprio. The two play characters who are of different social
+              classes. They fall in love after meeting aboard the ship, but it
+              was not good for a rich girl to fall in love with a poor boy in
+              1912."},Director:{Name:"James Cameron",Bio:"Canadian",Birth:"Aug
+              16,1954"}, Genre:{"Name:Romance", Description:"Tale of romance
+              between two people"}}
             </p>
           </td>
         </tr>
         <tr>
           <td>Get data about single movie by title.</td>
-          <td>/movies/:title</td>
+          <td>/movies/:Title</td>
           <td></td>
           <td>GET</td>
           <td>none</td>
           <td>JSON object holding data about single movie by name.</td>
         </tr>
         <tr>
-          <td>Get data about a movie genre.</td>
-          <td>/movies/:title/genre</td>
+          <td>Get genre of a movie by its title.</td>
+          <td>/movies/genre/:Title</td>
           <td>GET</td>
           <td>none</td>
           <td>json object holding the movie's genre.</td>
         </tr>
         <tr>
           <td>Get data about director by name.</td>
-          <td>/movies/:title/director/name</td>
+          <td>/movies/directors/:Name</td>
           <td>GET</td>
           <td>none</td>
           <td></td>
           <td>
             json object holding director's data.Structure:
-            <p>{Name:"Steven Spielberg",Bio:"American",dob:"Dec18,1946"}</p>
+            <p>{Name:"Steven Spielberg",Bio:"American",Birth:"Dec18,1946"}</p>
           </td>
         </tr>
         <tr>
@@ -70,34 +76,34 @@
           <td>
             JSON object holding data about new user. Structure:
             <p>
-              { username: "Charles Ben", password: "ABC123", email:
-              "charles.ben@gmail.com", dateofbirth: "05/29/87"}
+              { Name: "Charles Ben", Password: "ABC123", Email:
+              "charles.ben@gmail.com", Birthday: "05/29/87"}
             </p>
           </td>
           <td>
             JSON object holding data about new user. Structure:
             <p>
-              { id : 10,username: "Charles Ben", password: "ABC123", email:
-              "charles.ben@gmail.com", dateofbirth: "05/29/87"}
+              { id : 10,Name: "Charles Ben", Password: "ABC123", Email:
+              "charles.ben@gmail.com", Birthday: "05/29/87"}
             </p>
           </td>
         </tr>
         <tr>
           <td>Update a user's information</td>
-          <td>/users/:username</td>
+          <td>/users/:Name</td>
           <td>PUT</td>
           <td>
             JSON object holding data about the user to add. Structure:
             <p>
-              { username: "Charles Ben", password: "ABC123", email:
-              "charles.ben@gmail.com", dateofbirth: "05/29/87"}
+              { Name: "Charles Ben", Password: "ABC123", Email:
+              "charles.ben@gmail.com", Birthday: "05/29/87"}
             </p>
           </td>
           <td>A message indicating the user's information was updated.</td>
         </tr>
         <tr>
           <td>Add a movie to the user's favorites list</td>
-          <td>/favorites/:username/movies/:title</td>
+          <td>/favoritemovies/:Name/Movies/:MovieID</td>
           <td>POST</td>
           <td>None</td>
           <td>
@@ -107,7 +113,7 @@
         </tr>
         <tr>
           <td>Delete a movie from the user's favorites list</td>
-          <td>/favorites/:username/movies/:title</td>
+          <td>/favoritemovies/:Name/Movies/:MovieID</td>
           <td>DELETE</td>
           <td>None</td>
           <td>
@@ -117,7 +123,7 @@
         </tr>
         <tr>
           <td>Remove a user from the registry.</td>
-          <td>/users/:username</td>
+          <td>/users/:Name</td>
           <td>DELETE</td>
           <td>None</td>
           <td>A message indicating the user was removed from the registry.</td>
