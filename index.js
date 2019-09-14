@@ -6,9 +6,6 @@ const morgan = require("morgan");
 const passport = require("passport");
 require("./passport");
 const app = express();
-//router.use(bodyParser.json());
-
-//var auth = require("./auth")(app);
 const Movies = Models.Movie;
 const Users = Models.User;
 mongoose.connect("mongodb://localhost:27017/myFlixDB", {
@@ -40,7 +37,6 @@ app.get(
   "/movies/genre/:Title",
   passport.authenticate("jwt", { session: false }),
   function(req, res) {
-    //res.send("get the movie genre by movie's title");
     Movies.findOne({ Title: req.params.Title })
 
       .then(function(movie) {
@@ -85,8 +81,6 @@ app.get(
 
         res.status(500).send("Error:" + err);
       });
-
-    //res.send("get the movie director's data by movie's title");
   }
 );
 app.get(
@@ -106,12 +100,7 @@ app.get(
       });
   }
 );
-app.post("/users", passport.authenticate("jwt", { session: false }), function(
-  req,
-  res
-) {
-  //  res.send("new user added");
-  //});
+app.post("/users", function(req, res) {
   Users.findOne({ Name: req.body.Name })
     .then(function(user) {
       if (user) {
@@ -175,7 +164,7 @@ app.post(
       {
         $push: { Favoritemovies: req.params.MovieID }
       },
-      { new: true }, // This line makes sure that the updated document is returned
+      { new: true },
       function(err, updatedUser) {
         if (err) {
           console.error(err);
