@@ -10,9 +10,15 @@ const app = express();
 const cors = require("cors");
 const Movies = Models.Movie;
 const Users = Models.User;
-mongoose.connect("mongodb://localhost:27017/myFlixDB", {
-  useNewUrlParser: true
-});
+//mongoose.connect("mongodb://localhost:27017/myFlixDB", {
+//useNewUrlParser: true
+//});
+mongoose.connect(
+  "mongodb+srv://trohini:Aviabhav@tiger9@myflixdb-1vdbn.mongodb.net/myFlixDB?retryWrites=true&w=majority",
+  {
+    useNewUrlParser: true
+  }
+);
 
 app.use(morgan("common"));
 app.use(bodyParser.json());
@@ -124,7 +130,7 @@ app.post(
       return res.status(422).json({ errors: errors.array() });
     }
 
-    var hashedPassword = Users.hashPassword(req.body.password);
+    var hashedPassword = Users.hashPassword(req.body.Password);
     Users.findOne({ Name: req.body.Name })
       .then(function(user) {
         if (user) {
@@ -307,4 +313,7 @@ app.use(function(err, req, res, next) {
   console.error(err.stack);
   res.status(500).send("Something broke!");
 });
-app.listen(8080, () => console.log("Your app is listening on port 8080."));
+var port = process.env.PORT || 3000;
+app.listen(port, "0.0.0.0", function() {
+  console.log("Listening on Port 3000");
+});
