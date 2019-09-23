@@ -23,6 +23,7 @@ mongoose.connect(
 app.use(morgan("common"));
 app.use(bodyParser.json());
 app.use(cors());
+var allowedOrigins = ["*"];
 var auth = require("./auth")(app);
 app.get("/", function(req, res) {
   res.send("Welcome to my movie club!");
