@@ -10,20 +10,20 @@ const app = express();
 const cors = require("cors");
 const Movies = Models.Movie;
 const Users = Models.User;
-//mongoose.connect("mongodb://localhost:27017/myFlixDB", {
-//useNewUrlParser: true
-//});
-mongoose.connect(
+mongoose.connect("mongodb://localhost:27017/myFlixDB", {
+  useNewUrlParser: true
+});
+/*mongoose.connect(
   "mongodb+srv://trohini:Aviabhav@tiger9@myflixdb-1vdbn.mongodb.net/myFlixDB?retryWrites=true&w=majority",
   {
     useNewUrlParser: true
   }
-);
+);*/
 
 app.use(morgan("common"));
 app.use(bodyParser.json());
 app.use(cors());
-var allowedOrigins = ["*"];
+//var allowedOrigins = ["*"];
 var auth = require("./auth")(app);
 app.get("/", function(req, res) {
   res.send("Welcome to my movie club!");

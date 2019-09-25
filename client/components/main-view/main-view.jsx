@@ -1,14 +1,23 @@
-import React from react;
-import axios from axios;
+import React from 'react';
+import axios from 'axios';
+import { MovieCard } from '../movie-card/movie-card';
 export class MainView extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      movies: undefined
+    }
+  }
 
 
   componentDidMount() {
-    axios.get('<my-api-endpoint/movies>')
+    axios.get('<localhost:3000/movies>')
       .then(response => {
         this.setState({
           movies: response.data
+
         });
+
       })
       .catch(function (error) {
         console.log(error);
