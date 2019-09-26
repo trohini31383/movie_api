@@ -1,6 +1,28 @@
 import React from 'react';
+import { MainView } from '../main-view/main-view';
+import axios from 'axios';
+import { MovieCard } from '../movie-card/movie-card';
 
 export class MovieView extends React.Component {
+  buttonClicked() {
+
+
+    const { movies } = this.props;
+
+    // Before the movies have been loaded
+    if (!movies) return <div className="main-view" />;
+
+    return (
+      <div className="main-view">
+        {movies.map(movie => (
+          <MovieCard key={movie._id} movie={movie} />
+        ))}
+      </div>
+    );
+
+
+
+  }
 
   constructor() {
     super();
@@ -34,9 +56,9 @@ export class MovieView extends React.Component {
         </div>
 
 
+        <button onClick={this.buttonClicked}>Go Back</button>
 
 
-        <button onClick={<MainView />} > Mainview </button >
       </div >
 
 
