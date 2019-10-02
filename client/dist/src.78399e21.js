@@ -34523,12 +34523,20 @@ function LoginView(props) {
     controlId: "formBasicEmail"
   }, _react.default.createElement(_Form.default.Label, null, "Email address"), _react.default.createElement(_Form.default.Control, {
     type: "email",
-    placeholder: "Enter email"
+    placeholder: "Enter email",
+    value: Name,
+    onChange: function onChange(e) {
+      setUsername(e.target.value);
+    }
   }), _react.default.createElement(_Form.default.Text, {
     className: "text-muted"
   }, "We'll never share your email with anyone else.")), _react.default.createElement(_Form.default.Group, {
     controlId: "formBasicPassword"
   }, _react.default.createElement(_Form.default.Label, null, "Password"), _react.default.createElement(_Form.default.Control, {
+    value: Password,
+    onChange: function onChange(e) {
+      return setPassword(e.target.value);
+    },
     type: "password",
     placeholder: "Password"
   })), _react.default.createElement(_Button.default, {
@@ -34717,7 +34725,14 @@ function RegistrationView(props) {
   })), _react.default.createElement(_Button.default, {
     variant: "primary",
     onClick: successfulRegistration
-  }, "Register"))); // return
+  }, "Register"), _react.default.createElement(_Form.default.Group, {
+    controlId: "formNewUser"
+  }, _react.default.createElement(_Form.default.Text, null, "Already registered? Click ", _react.default.createElement(_Button.default, {
+    variant: "link",
+    onClick: function onClick() {
+      return props.userRegistered();
+    }
+  }, " here "), " to login")))); // return
 }
 
 RegistrationView.propTypes = {
@@ -35162,6 +35177,20 @@ function (_React$Component) {
       });
     }
   }, {
+    key: "registerUser",
+    value: function registerUser() {
+      this.setState({
+        newUser: true
+      });
+    }
+  }, {
+    key: "userRegistered",
+    value: function userRegistered() {
+      this.setState({
+        newUser: null
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this3 = this;
@@ -35169,7 +35198,30 @@ function (_React$Component) {
       var _this$state = this.state,
           movies = _this$state.movies,
           selectedMovie = _this$state.selectedMovie,
-          user = _this$state.user;
+          user = _this$state.user,
+          newUser = _this$state.newUser;
+
+      if (!user) {
+        if (newUser) return _react.default.createElement(_registrationView.RegistrationView, {
+          userRegistered: function userRegistered() {
+            return _this3.userRegistered();
+          },
+          onLoggedIn: function onLoggedIn(user) {
+            return _this3.onLoggedIn(user);
+          }
+        });else return _react.default.createElement(_loginView.LoginView, {
+          onLoggedIn: function onLoggedIn(user) {
+            return _this3.onLoggedIn(user);
+          },
+          newUser: function newUser() {
+            return _this3.registerUser();
+          },
+          userRegistered: function userRegistered() {
+            return _this3.userRegistered();
+          }
+        });
+      }
+
       if (!user) return _react.default.createElement(_loginView.LoginView, {
         onLoggedIn: function onLoggedIn(user) {
           return _this3.onLoggedIn(user);

@@ -42,16 +42,46 @@ export class MainView extends React.Component {
     });
   }
 
+
+
   handleButtonClicked = () => {
     this.setState({
       selectedMovie: null
     });
   }
 
+  registerUser() {
+
+    this.setState({
+
+      newUser: true
+
+    });
+
+  }
+  userRegistered() {
+
+    this.setState({
+
+      newUser: null
+
+    });
+
+  }
+
 
   render() {
 
-    const { movies, selectedMovie, user } = this.state;
+    const { movies, selectedMovie, user, newUser } = this.state;
+
+    if (!user) {
+
+      if (newUser) return <RegistrationView userRegistered={() => this.userRegistered()} onLoggedIn={user => this.onLoggedIn(user)} />;
+
+      else return <LoginView onLoggedIn={user => this.onLoggedIn(user)} newUser={() => this.registerUser()} userRegistered={() => this.userRegistered()} />;
+
+    }
+
     if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
 
 

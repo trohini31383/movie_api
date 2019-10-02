@@ -16,6 +16,7 @@ export function LoginView(props) {
     console.log(Name, Password);
     /* Send a request to the server for authentication */
     /* then call props.onLoggedIn(username) */
+
     props.onLoggedIn(Name)
   };
 
@@ -26,13 +27,27 @@ export function LoginView(props) {
         <h1>Login</h1>
         <Form.Group controlId='formBasicEmail'>
           <Form.Label>Email address</Form.Label>
-          <Form.Control type='email' placeholder='Enter email' />
-          <Form.Text className='text-muted'>We'll never share your email with anyone else.</Form.Text>
+          <Form.Control
+            type='email'
+            placeholder='Enter email'
+            value={Name}
+            onChange={e => {
+              setUsername(e.target.value)
+            }}
+          />
+          <Form.Text
+            className='text-muted'>We'll never share your email with anyone else.
+          </Form.Text>
         </Form.Group>
 
         <Form.Group controlId='formBasicPassword'>
           <Form.Label>Password</Form.Label>
-          <Form.Control type='password' placeholder='Password' />
+          <Form.Control
+            value={Password}
+            onChange={e => setPassword(e.target.value)}
+            type='password'
+            placeholder='Password'
+          />
         </Form.Group>
 
         <Button variant='Primary' onClick={handleSubmit}>Submit</Button>
@@ -51,3 +66,4 @@ LoginView.propTypes = {
   onLoggedIn: PropTypes.func.isRequired
 
 };
+
