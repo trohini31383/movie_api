@@ -34732,7 +34732,7 @@ function RegistrationView(props) {
     onClick: function onClick() {
       return props.userRegistered();
     }
-  }, " here "), " to login")))); // return
+  }, " here "), " to login"))));
 }
 
 RegistrationView.propTypes = {
@@ -35144,7 +35144,8 @@ function (_React$Component) {
     _this.state = {
       movies: null,
       selectedMovie: null,
-      user: null
+      user: null,
+      newUser: null
     };
     return _this;
   }
@@ -35196,37 +35197,25 @@ function (_React$Component) {
       var _this3 = this;
 
       var _this$state = this.state,
-          movies = _this$state.movies,
-          selectedMovie = _this$state.selectedMovie,
           user = _this$state.user,
-          newUser = _this$state.newUser;
+          newUser = _this$state.newUser,
+          selectedMovie = _this$state.selectedMovie,
+          movies = _this$state.movies;
 
-      if (!user) {
-        if (newUser) return _react.default.createElement(_registrationView.RegistrationView, {
-          userRegistered: function userRegistered() {
-            return _this3.userRegistered();
-          },
-          onLoggedIn: function onLoggedIn(user) {
-            return _this3.onLoggedIn(user);
-          }
-        });else return _react.default.createElement(_loginView.LoginView, {
-          onLoggedIn: function onLoggedIn(user) {
-            return _this3.onLoggedIn(user);
-          },
-          newUser: function newUser() {
-            return _this3.registerUser();
-          },
-          userRegistered: function userRegistered() {
-            return _this3.userRegistered();
-          }
-        });
+      if (newUser) {
+        return _react.default.createElement(_registrationView.RegistrationView, null);
       }
 
-      if (!user) return _react.default.createElement(_loginView.LoginView, {
+      if (!user) return _react.default.createElement("div", null, _react.default.createElement(_loginView.LoginView, {
         onLoggedIn: function onLoggedIn(user) {
           return _this3.onLoggedIn(user);
         }
-      });
+      }), "New User", _react.default.createElement("button", {
+        variant: "primary",
+        onClick: function onClick() {
+          return _this3.registerUser();
+        }
+      }, "Sign up"));
       if (!movies) return _react.default.createElement("div", {
         className: "main-view"
       });
@@ -35339,7 +35328,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54113" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51674" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -80,7 +80,7 @@ export function RegistrationView(props) {
 
     </Container>
 
-  ); // return
+  );
 
 }
 RegistrationView.propTypes = {
