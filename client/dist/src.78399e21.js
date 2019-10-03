@@ -34635,6 +34635,8 @@ var _react = _interopRequireWildcard(require("react"));
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
+var _loginView = require("../login-view/login-view");
+
 var _Form = _interopRequireDefault(require("react-bootstrap/Form"));
 
 var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
@@ -34729,9 +34731,7 @@ function RegistrationView(props) {
     controlId: "formNewUser"
   }, _react.default.createElement(_Form.default.Text, null, "Already registered? Click ", _react.default.createElement(_Button.default, {
     variant: "link",
-    onClick: function onClick() {
-      return props.userRegistered();
-    }
+    onClick: _react.default.createElement(_loginView.LoginView, null)
   }, " here "), " to login"))));
 }
 
@@ -34744,7 +34744,7 @@ RegistrationView.propTypes = {
   userRegistered: _propTypes.default.func.isRequired,
   onLoggedIn: _propTypes.default.func.isRequired
 };
-},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap/Form":"../node_modules/react-bootstrap/Form.js","react-bootstrap/Button":"../node_modules/react-bootstrap/Button.js","react-bootstrap/Container":"../node_modules/react-bootstrap/Container.js","./registration-view.scss":"../components/registration-view/registration-view.scss"}],"../node_modules/react-bootstrap/utils/divWithClassName.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","../login-view/login-view":"../components/login-view/login-view.jsx","react-bootstrap/Form":"../node_modules/react-bootstrap/Form.js","react-bootstrap/Button":"../node_modules/react-bootstrap/Button.js","react-bootstrap/Container":"../node_modules/react-bootstrap/Container.js","./registration-view.scss":"../components/registration-view/registration-view.scss"}],"../node_modules/react-bootstrap/utils/divWithClassName.js":[function(require,module,exports) {
 "use strict";
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
@@ -35155,7 +35155,7 @@ function (_React$Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      _axios.default.get('http://localhost:3000/movies').then(function (response) {
+      _axios.default.post('http://localhost:3000/users').then(function (response) {
         _this2.setState({
           movies: response.data
         });
@@ -35328,7 +35328,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51674" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52432" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

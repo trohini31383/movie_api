@@ -18,7 +18,7 @@ export class MainView extends React.Component {
 
 
   componentDidMount() {
-    axios.get('http://localhost:3000/movies')
+    axios.post('http://localhost:3000/users')
       .then(response => {
         this.setState({
           movies: response.data
