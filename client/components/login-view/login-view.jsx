@@ -6,6 +6,8 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
 import Container from 'react-bootstrap/Container';
+import './login-view.scss';
+
 
 export function LoginView(props) {
   const [Name, setUsername] = useState('');
@@ -26,7 +28,7 @@ export function LoginView(props) {
       <Form>
         <h1>Login</h1>
         <Form.Group controlId='formBasicEmail'>
-          <Form.Label>Email address</Form.Label>
+          <Form.Label><b>Email address</b></Form.Label>
           <Form.Control
             type='email'
             placeholder='Enter email'
@@ -41,7 +43,7 @@ export function LoginView(props) {
         </Form.Group>
 
         <Form.Group controlId='formBasicPassword'>
-          <Form.Label>Password</Form.Label>
+          <Form.Label><b>Password</b></Form.Label>
           <Form.Control
             value={Password}
             onChange={e => setPassword(e.target.value)}
@@ -50,11 +52,13 @@ export function LoginView(props) {
           />
         </Form.Group>
 
-        <Button variant='Primary' onClick={handleSubmit}>Submit</Button>
+        <Button className='btn' variant='Primary' onClick={handleSubmit}>Submit</Button>
+
       </Form>
     </Container>
   );
 }
+
 LoginView.propTypes = {
 
   Name: PropTypes.string.isRequired,

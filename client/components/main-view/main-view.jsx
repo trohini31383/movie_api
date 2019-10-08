@@ -4,6 +4,7 @@ import { LoginView } from '../login-view/login-view';
 import { RegistrationView } from '../registration-view/registration-view';
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
+import './main-view.scss';
 
 export class MainView extends React.Component {
   constructor(props) {
@@ -18,7 +19,7 @@ export class MainView extends React.Component {
 
 
   componentDidMount() {
-    axios.post('http://localhost:3000/users')
+    axios.get('http://localhost:3000/movies')
       .then(response => {
         this.setState({
           movies: response.data
@@ -76,18 +77,18 @@ export class MainView extends React.Component {
 
     if (newUser) {
       return (
-        <RegistrationView />
-      )
+        <RegistrationView userRegistered={() => this.userRegistered()} onLoggedIn={user => this.onLoggedIn(user)} />
+      );
     }
 
     if (!user) return (
       <div>
         <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
-        New User
-        <button
+        New User? <button
           variant="primary"
           onClick={() => this.registerUser()}>Sign up
         </button>
+
       </div>
     )
 

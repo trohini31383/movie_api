@@ -74,7 +74,7 @@ export function RegistrationView(props) {
         <Button variant='primary' onClick={successfulRegistration}>Register</Button>
         <Form.Group controlId='formNewUser'>
 
-          <Form.Text>Already registered? Click <Button variant='link' onClick={<LoginView />}> here </Button> to login</Form.Text>
+          <Form.Text>Already registered? Click <Button variant='link' onClick={() => props.userRegistered()}> here </Button> to login</Form.Text>
 
         </Form.Group>
       </Form>
