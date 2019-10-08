@@ -34554,6 +34554,8 @@ var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
 
 var _Container = _interopRequireDefault(require("react-bootstrap/Container"));
 
+var _axios = _interopRequireDefault(require("axios"));
+
 require("./login-view.scss");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -34583,12 +34585,16 @@ function LoginView(props) {
 
   var handleSubmit = function handleSubmit(e) {
     e.preventDefault();
-    console.log(Name, Password);
-    /* Send a request to the server for authentication */
 
-    /* then call props.onLoggedIn(username) */
-
-    props.onLoggedIn(Name);
+    _axios.default.post('http://localhost:3000/login', {
+      Username: Name,
+      Password: Password
+    }).then(function (response) {
+      var data = response.data;
+      props.onLoggedIn(data);
+    }).catch(function (e) {
+      console.log('no such user');
+    });
   };
 
   return _react.default.createElement(_Container.default, {
@@ -34626,7 +34632,7 @@ LoginView.propTypes = {
   onClick: _propTypes.default.func.isRequired,
   onLoggedIn: _propTypes.default.func.isRequired
 };
-},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap/Form":"../node_modules/react-bootstrap/Form.js","react-bootstrap/Button":"../node_modules/react-bootstrap/Button.js","react-bootstrap/Container":"../node_modules/react-bootstrap/Container.js","./login-view.scss":"../components/login-view/login-view.scss"}],"../components/registration-view/registration-view.scss":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap/Form":"../node_modules/react-bootstrap/Form.js","react-bootstrap/Button":"../node_modules/react-bootstrap/Button.js","react-bootstrap/Container":"../node_modules/react-bootstrap/Container.js","axios":"../node_modules/axios/index.js","./login-view.scss":"../components/login-view/login-view.scss"}],"../components/registration-view/registration-view.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
@@ -35366,7 +35372,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57395" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61127" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

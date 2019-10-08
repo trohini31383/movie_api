@@ -29,7 +29,10 @@ app.get("/", function(req, res) {
   res.send("Welcome to my movie club!");
 });
 
-app.get("/movies", function(req, res) {
+app.get("/movies", passport.authenticate("jwt", { session: false }), function(
+  req,
+  res
+) {
   Movies.find()
     .then(function(movies) {
       res.status(201).json(movies);
@@ -277,10 +280,7 @@ app.delete(
       });
   }
 );
-app.get("/users", passport.authenticate("jwt", { session: false }), function(
-  req,
-  res
-) {
+app.get("/users", function(req, res) {
   Users.find()
     .then(function(users) {
       res.status(201).json(users);
