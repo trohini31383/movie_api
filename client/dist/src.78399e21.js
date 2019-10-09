@@ -34575,8 +34575,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 function LoginView(props) {
   var _useState = (0, _react.useState)(''),
       _useState2 = _slicedToArray(_useState, 2),
-      Name = _useState2[0],
-      setUsername = _useState2[1];
+      Email = _useState2[0],
+      setEmail = _useState2[1];
 
   var _useState3 = (0, _react.useState)(''),
       _useState4 = _slicedToArray(_useState3, 2),
@@ -34586,8 +34586,8 @@ function LoginView(props) {
   var handleSubmit = function handleSubmit(e) {
     e.preventDefault();
 
-    _axios.default.post('http://localhost:3000/login', {
-      Username: Name,
+    _axios.default.post('https://localhost:3000/login', {
+      Email: Email,
       Password: Password
     }).then(function (response) {
       var data = response.data;
@@ -34604,9 +34604,9 @@ function LoginView(props) {
   }, _react.default.createElement(_Form.default.Label, null, _react.default.createElement("b", null, "Email address")), _react.default.createElement(_Form.default.Control, {
     type: "email",
     placeholder: "Enter email",
-    value: Name,
+    value: Email,
     onChange: function onChange(e) {
-      setUsername(e.target.value);
+      setEmail(e.target.value);
     }
   }), _react.default.createElement(_Form.default.Text, {
     className: "text-muted"
@@ -35372,7 +35372,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62035" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62865" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

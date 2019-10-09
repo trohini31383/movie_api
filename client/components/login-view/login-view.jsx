@@ -12,13 +12,13 @@ import './login-view.scss';
 
 
 export function LoginView(props) {
-  const [Name, setUsername] = useState('');
+  const [Email, setEmail] = useState('');
   const [Password, setPassword] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('http://localhost:3000/login', {
-      Username: Name,
+    axios.post('https://localhost:3000/login', {
+      Email: Email,
       Password: Password
     })
       .then(response => {
@@ -40,9 +40,9 @@ export function LoginView(props) {
           <Form.Control
             type='email'
             placeholder='Enter email'
-            value={Name}
+            value={Email}
             onChange={e => {
-              setUsername(e.target.value)
+              setEmail(e.target.value)
             }}
           />
           <Form.Text
