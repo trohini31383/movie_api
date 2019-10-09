@@ -34586,13 +34586,14 @@ function LoginView(props) {
   var handleSubmit = function handleSubmit(e) {
     e.preventDefault();
 
-    _axios.default.post('https://localhost:3000/login', {
+    _axios.default.post('http://localhost:3000/login', {
       Email: Email,
       Password: Password
     }).then(function (response) {
       var data = response.data;
       props.onLoggedIn(data);
     }).catch(function (e) {
+      console.log(e);
       console.log('no such user');
     });
   };
@@ -35209,9 +35210,31 @@ function (_React$Component) {
     }
   }, {
     key: "onLoggedIn",
-    value: function onLoggedIn(user) {
+    value: function onLoggedIn(authData) {
+      console.log(authData);
       this.setState({
-        user: user
+        user: authData.user.Email
+      });
+      localStorage.setItem('token', authData.token);
+      localStorage.setItem('user', authData.user.Email);
+      this.getMovies(authdata.token);
+    }
+  }, {
+    key: "getMovies",
+    value: function getMovies(token) {
+      var _this3 = this;
+
+      _axios.default.get('http://localhost:3000/movies', {
+        headers: {
+          Authorization: "Bearer ".concat(token)
+        }
+      }).then(function (response) {
+        // Assign the result to the state
+        _this3.setState({
+          movies: response.data
+        });
+      }).catch(function (error) {
+        console.log(error);
       });
     }
   }, {
@@ -35231,7 +35254,7 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this3 = this;
+      var _this4 = this;
 
       var _this$state = this.state,
           user = _this$state.user,
@@ -35242,22 +35265,22 @@ function (_React$Component) {
       if (newUser) {
         return _react.default.createElement(_registrationView.RegistrationView, {
           userRegistered: function userRegistered() {
-            return _this3.userRegistered();
+            return _this4.userRegistered();
           },
           onLoggedIn: function onLoggedIn(user) {
-            return _this3.onLoggedIn(user);
+            return _this4.onLoggedIn(user);
           }
         });
       }
 
       if (!user) return _react.default.createElement("div", null, _react.default.createElement(_loginView.LoginView, {
         onLoggedIn: function onLoggedIn(user) {
-          return _this3.onLoggedIn(user);
+          return _this4.onLoggedIn(user);
         }
       }), "New User? ", _react.default.createElement("button", {
         variant: "primary",
         onClick: function onClick() {
-          return _this3.registerUser();
+          return _this4.registerUser();
         }
       }, "Sign up"));
       if (!movies) return _react.default.createElement("div", {
@@ -35273,7 +35296,7 @@ function (_React$Component) {
           key: movie._id,
           movie: movie,
           onClick: function onClick(movie) {
-            return _this3.onMovieClick(movie);
+            return _this4.onMovieClick(movie);
           }
         });
       }));
@@ -35372,7 +35395,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62865" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63217" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

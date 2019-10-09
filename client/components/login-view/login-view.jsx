@@ -17,7 +17,7 @@ export function LoginView(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('https://localhost:3000/login', {
+    axios.post('http://localhost:3000/login', {
       Email: Email,
       Password: Password
     })
@@ -26,6 +26,7 @@ export function LoginView(props) {
         props.onLoggedIn(data);
       })
       .catch(e => {
+        console.log(e)
         console.log('no such user')
       });
   };
