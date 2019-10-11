@@ -1,5 +1,7 @@
 import React from 'react';
 import './movie-view.scss';
+import { Link } from "react-router-dom";
+import Button from 'react-bootstrap/Button';
 
 
 export class MovieView extends React.Component {
@@ -9,7 +11,7 @@ export class MovieView extends React.Component {
   }
 
   render() {
-    const { movie, goBack } = this.props;
+    const { movie } = this.props;
 
     if (!movie) return null;
 
@@ -28,14 +30,26 @@ export class MovieView extends React.Component {
         <div className="movie-genre">
           <div className="label"><b>Genre</b></div>
           <div className="value">{movie.Genre.Name}</div>
+          <Link to={`/genres/${movie.Genre.Name}`}>
+            <Button variant="link">Genre</Button>
+          </Link>
+
         </div>
 
         <div className="movie-director">
           <div className="label"><b>Director</b></div>
           <div className="value">{movie.Director.Name}</div>
+
+          <Link to={`/directors/${movie.Director.Name}`}>
+            <Button variant="link">Director</Button>
+          </Link>
         </div>
 
-        <button onClick={goBack}>Go Back</button>
+
+
+        <Link to={`/`}>
+          <Button>Go Back</Button>
+        </Link>
       </div >
     );
   }

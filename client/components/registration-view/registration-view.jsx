@@ -26,10 +26,33 @@ export function RegistrationView(props) {
 
     e.preventDefault();
 
-    props.userRegistered();
+    axios.post('http://localhost:3000/users', {
 
-    props.onLoggedIn(Name);
+      Name: Name,
 
+      Password: Password,
+
+      Email: Email,
+
+      Birthday: Birthday
+
+    })
+
+      .then(response => {
+
+        const data = response.data;
+
+        console.log(data);
+
+        window.open('/', '_self');
+
+      })
+
+      .catch(e => {
+
+        console.log('error registering the user')
+
+      });
   };
   return (
 
@@ -74,7 +97,9 @@ export function RegistrationView(props) {
         <Button variant='primary' onClick={successfulRegistration}>Register</Button>
         <Form.Group controlId='formNewUser'>
 
-          <Form.Text>Already registered? Click <Button variant='link' onClick={() => props.userRegistered()}> here </Button> to login</Form.Text>
+          <Form.Text>Already registered? Click <Link to={`/`}>
+            <Button>here</Button>
+          </Link> to login</Form.Text>
 
         </Form.Group>
       </Form>

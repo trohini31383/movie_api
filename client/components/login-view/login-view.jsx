@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from "react-router-dom";
 
 import Form from 'react-bootstrap/Form';
 
-import Button from 'react-bootstrap/Button';
-
 import Container from 'react-bootstrap/Container';
 import axios from 'axios';
-
+import Button from 'react-bootstrap/Button';
 import './login-view.scss';
 
 
@@ -62,6 +61,11 @@ export function LoginView(props) {
         </Form.Group>
 
         <Button className='btn' variant='Primary' onClick={handleSubmit}>Submit</Button>
+        New User ? <Link to={`/register`}>
+
+          <Button className="btn-register" variant="secondary">Sign up</Button>
+
+        </Link>
 
       </Form>
     </Container>
