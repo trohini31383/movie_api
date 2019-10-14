@@ -38488,9 +38488,9 @@ function (_React$Component) {
       var _this3 = this;
 
       var _this$state = this.state,
+          movies = _this$state.movies,
           user = _this$state.user,
           token = _this$state.token;
-      var movies = this.props.movies;
       if (!movies) return _react.default.createElement("div", {
         className: "main-view"
       });

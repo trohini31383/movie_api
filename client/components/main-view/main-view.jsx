@@ -73,8 +73,8 @@ export class MainView extends React.Component {
 
 
   render() {
-    const { user, token } = this.state
-    let { movies } = this.props;
+    const { movies, user, token } = this.state
+
 
     if (!movies) return <div className="main-view" />;
 
