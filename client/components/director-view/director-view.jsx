@@ -30,7 +30,7 @@ export class DirectorView extends React.Component {
 
             <br />
 
-            Birth Year:  {Director.Birthday}
+            Birth Year:  {Director.Birth}
 
           </Card.Text>
 

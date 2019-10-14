@@ -14,7 +14,7 @@ export class GenreView extends React.Component {
     return (
       <div className="movie-genre">
         <div className="label"><b>Genre</b></div>
-        <div className="value">Genre.Name}</div>
+        <div className="value">{Genre.Name}</div>
         <div className="label"><b>Description</b></div>
         <div className="value">{Genre.Description}</div>
         <Link to={`/`} >

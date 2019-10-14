@@ -7,6 +7,7 @@ import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 import { DirectorView } from '../director-view/director-view';
 import { GenreView } from '../genre-view/genre-view';
+import { ProfileView } from '../profile-view/profile-view';
 import Button from 'react-bootstrap/Button';
 import './main-view.scss';
 
@@ -16,6 +17,8 @@ export class MainView extends React.Component {
     this.state = {
       movies: [],
       user: null,
+      userInfo: {}
+
     };
   }
 
@@ -57,6 +60,30 @@ export class MainView extends React.Component {
         console.log(error);
       });
   }
+  getUser(token) {
+
+    axios
+
+      .get('http://localhost:3000/users/', {
+
+        headers: { Authorization: `Bearer ${token}` }
+
+      })
+
+      .then(response => {
+
+        this.props.setLoggedUser(response.data);
+
+      })
+
+      .catch(error => {
+
+        console.log(error);
+
+      });
+
+  }
+
 
 
 
@@ -73,19 +100,14 @@ export class MainView extends React.Component {
 
 
   render() {
-    const { movies, user, token } = this.state
+    const { movies, user, token, userInfo } = this.state
 
 
     if (!movies) return <div className="main-view" />;
 
     return (
       <Router>
-        <div>
-          <Link to={`/users/${user}`}>
-            <Button variant="info">Profile</Button>
-          </Link>
-          <Button onClick={() => this.onLogout()}><b>Log out</b></Button>
-        </div>
+
         <Route exact path="/" render={() => {
           if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
           return movies.map(m => <MovieCard key={m._id} movie={m} />)
@@ -95,16 +117,26 @@ export class MainView extends React.Component {
         <Route path="/movies/:movieId" render={({ match }) => <MovieView movie={movies.find(m => m._id === match.params.movieId)} />} />
         <Route path="/directors/:Name" render={({ match }) => {
           if (!movies) return <div className="main-view" />;
-          return <DirectorView director={movies.find(m => m.Director.Name === match.params.name).Director} />
+          return <DirectorView Director={movies.find(m => m.Director.Name === match.params.Name).Director} />
         }
         } />
-        <Route path="/genre/:Name" render={({ match }) => {
+        <Route path="/genres/:Name" render={({ match }) => {
           if (!movies) return <div className="main-view" />;
-          return <GenreView genre={movies.find(m => m.Genre.Name === match.params.name).Genre} />
+          return <GenreView Genre={movies.find(m => m.Genre.Name === match.params.Name).Genre} />
         }
         } />
+        <Route path="/users/:Email" render={({ match }) => { return <ProfileView userInfo={userInfo} /> }} />
+        <div>
+          <Link to={`/users/${user}`}>
+            <Button variant="info">Profile</Button>
+          </Link><p></p>
+
+          <Button onClick={() => this.onLogout()}><b>Log out</b></Button>
+        </div>
+
 
       </Router >
+
 
 
     );

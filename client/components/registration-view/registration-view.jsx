@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 import PropTypes from 'prop-types';
 import { LoginView } from '../login-view/login-view';
@@ -6,13 +7,16 @@ import { LoginView } from '../login-view/login-view';
 import Form from 'react-bootstrap/Form';
 
 import Button from 'react-bootstrap/Button';
+//import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+
+import { Link } from "react-router-dom";
 
 import Container from 'react-bootstrap/Container';
 
 import './registration-view.scss';
 export function RegistrationView(props) {
 
-  const [Name, setUsername] = useState('');
+  const [Name, setName] = useState('');
 
   const [Password, setPassword] = useState('');
 
@@ -56,17 +60,18 @@ export function RegistrationView(props) {
   };
   return (
 
-    <Container className='registration-view'>
 
-      <h1>Register</h1>
 
+    <Container className="registration-view">
       <Form>
+        <h1>Register</h1>
+
 
         <Form.Group controlId='formNewUsername'>
 
           <Form.Label>Username:</Form.Label>
 
-          <Form.Control type='text' placeholder='Your username' value={Name} onChange={e => setUsername(e.target.value)} />
+          <Form.Control type='text' placeholder='Your username' value={Name} onChange={e => setName(e.target.value)} />
 
         </Form.Group>
 
@@ -103,26 +108,10 @@ export function RegistrationView(props) {
 
         </Form.Group>
       </Form>
-
     </Container>
 
+
+
   );
-
-}
-RegistrationView.propTypes = {
-
-  Name: PropTypes.string.isRequired,
-
-  Password: PropTypes.string.isRequired,
-
-  Email: PropTypes.string.isRequired,
-
-  Birthday: PropTypes.string.isRequired,
-
-  onClick: PropTypes.func.isRequired,
-
-  userRegistered: PropTypes.func.isRequired,
-
-  onLoggedIn: PropTypes.func.isRequired
 
 }
