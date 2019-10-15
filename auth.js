@@ -2,7 +2,7 @@ var jwtSecret = "your_jwt_secret"; // This has to be the same key used in the JW
 var jwt = require("jsonwebtoken");
 const passport = require("passport");
 require("./passport");
-
+var allowedOrigins = ["http://localhost:1234"];
 function generateJWTToken(user) {
   return jwt.sign(user, jwtSecret, {
     subject: user.Name,

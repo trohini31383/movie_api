@@ -30,7 +30,7 @@ export function RegistrationView(props) {
 
     e.preventDefault();
 
-    axios.post('http://localhost:3000/users', {
+    axios.post('https://all-about-movies.herokuapp.com/users', {
 
       Name: Name,
 

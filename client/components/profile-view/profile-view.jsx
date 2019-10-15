@@ -68,7 +68,7 @@ export class ProfileView extends React.Component {
 
     let Email = localStorage.getItem('user');
 
-    axios.get(`http://localhost:3000/users/${Email}`, {
+    axios.get(`https://all-about-movies.herokuapp.com/users/${Email}`, {
 
       headers: { Authorization: `Bearer ${token}` }
 
@@ -113,7 +113,7 @@ export class ProfileView extends React.Component {
 
   render() {
 
-    const { Name, Email, Birthday, Favouritemovies } = this.state;
+    const { Name, Email, Birthday, Favoritemovies } = this.state;
 
 
 
@@ -121,13 +121,13 @@ export class ProfileView extends React.Component {
 
       <Card className="profile-view" style={{ width: '32rem' }}>
 
-        <Card.Img className="profile-logo" variant="top" src={profileLogo} />
+
 
         <Card.Body>
 
           <Card.Title className="profile-title">My Profile</Card.Title>
 
-          <ListGroup className="list-group-flush" variant="flush">
+          <ListGroup>
 
             <ListGroup.Item>Username: {Name}</ListGroup.Item>
 
@@ -141,17 +141,17 @@ export class ProfileView extends React.Component {
 
              <div>
 
-                {Favouritemovies.length === 0 &&
+                {Favoritemovies.length === 0 &&
 
                   <div className="value">No Favourite Movies have been added</div>
 
                 }
 
-                {Favouritemovies.length > 0 &&
+                {Favoritemovies.length > 0 &&
 
                   <ul>
 
-                    {Favouritemovies.map(Favoritemovie =>
+                    {Favoritemovies.map(Favoritemovie =>
 
                       (<li key={Favoritemovie}>
 

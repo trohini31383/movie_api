@@ -37646,7 +37646,7 @@ function LoginView(props) {
   var handleSubmit = function handleSubmit(e) {
     e.preventDefault();
 
-    _axios.default.post('http://localhost:3000/login', {
+    _axios.default.post('https://all-about-movies.herokuapp.com/login', {
       Email: Email,
       Password: Password
     }).then(function (response) {
@@ -37767,7 +37767,7 @@ function RegistrationView(props) {
   var successfulRegistration = function successfulRegistration(e) {
     e.preventDefault();
 
-    _axios.default.post('http://localhost:3000/users', {
+    _axios.default.post('https://all-about-movies.herokuapp.com/users', {
       Name: Name,
       Password: Password,
       Email: Email,
@@ -39332,7 +39332,7 @@ function (_React$Component) {
 
       var Email = localStorage.getItem('user');
 
-      _axios.default.get("http://localhost:3000/users/".concat(Email), {
+      _axios.default.get("https://all-about-movies.herokuapp.com/users/".concat(Email), {
         headers: {
           Authorization: "Bearer ".concat(token)
         }
@@ -39361,24 +39361,17 @@ function (_React$Component) {
           Name = _this$state.Name,
           Email = _this$state.Email,
           Birthday = _this$state.Birthday,
-          Favouritemovies = _this$state.Favouritemovies;
+          Favoritemovies = _this$state.Favoritemovies;
       return _react.default.createElement(_Card.default, {
         className: "profile-view",
         style: {
           width: '32rem'
         }
-      }, _react.default.createElement(_Card.default.Img, {
-        className: "profile-logo",
-        variant: "top",
-        src: profileLogo
-      }), _react.default.createElement(_Card.default.Body, null, _react.default.createElement(_Card.default.Title, {
+      }, _react.default.createElement(_Card.default.Body, null, _react.default.createElement(_Card.default.Title, {
         className: "profile-title"
-      }, "My Profile"), _react.default.createElement(_ListGroup.default, {
-        className: "list-group-flush",
-        variant: "flush"
-      }, _react.default.createElement(_ListGroup.default.Item, null, "Username: ", Name), _react.default.createElement(_ListGroup.default.Item, null, "Password:******* "), _react.default.createElement(_ListGroup.default.Item, null, "Email: ", Email), _react.default.createElement(_ListGroup.default.Item, null, "Birthday: ", Birthday), _react.default.createElement(_ListGroup.default.Item, null, "Favourite Movies:", _react.default.createElement("div", null, Favouritemovies.length === 0 && _react.default.createElement("div", {
+      }, "My Profile"), _react.default.createElement(_ListGroup.default, null, _react.default.createElement(_ListGroup.default.Item, null, "Username: ", Name), _react.default.createElement(_ListGroup.default.Item, null, "Password:******* "), _react.default.createElement(_ListGroup.default.Item, null, "Email: ", Email), _react.default.createElement(_ListGroup.default.Item, null, "Birthday: ", Birthday), _react.default.createElement(_ListGroup.default.Item, null, "Favourite Movies:", _react.default.createElement("div", null, Favoritemovies.length === 0 && _react.default.createElement("div", {
         className: "value"
-      }, "No Favourite Movies have been added"), Favouritemovies.length > 0 && _react.default.createElement("ul", null, Favouritemovies.map(function (Favoritemovie) {
+      }, "No Favourite Movies have been added"), Favoritemovies.length > 0 && _react.default.createElement("ul", null, Favoritemovies.map(function (Favoritemovie) {
         return _react.default.createElement("li", {
           key: Favoritemovie
         }, _react.default.createElement("p", {
@@ -39505,7 +39498,7 @@ function (_React$Component) {
     value: function getMovies(token) {
       var _this2 = this;
 
-      _axios.default.get('http://localhost:3000/movies', {
+      _axios.default.get('https://all-about-movies.herokuapp.com/movies', {
         headers: {
           Authorization: "Bearer ".concat(token)
         }
@@ -39523,7 +39516,7 @@ function (_React$Component) {
     value: function getUser(token) {
       var _this3 = this;
 
-      _axios.default.get('http://localhost:3000/users/', {
+      _axios.default.get('https://all-about-movies.herokuapp.com/users', {
         headers: {
           Authorization: "Bearer ".concat(token)
         }
@@ -39722,7 +39715,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54375" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60894" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
