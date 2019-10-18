@@ -101,6 +101,32 @@ export class ProfileView extends React.Component {
       });
 
   }
+  deletefromFavs(event, FavoriteMovie) {
+
+    event.preventDefault();
+
+    console.log(FavoriteMovie);
+
+    axios.delete(`https://my-flix-1098.herokuapp.com/users/${localStorage.getItem('user')}/Movies/${FavoriteMovie}`, {
+
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+
+    })
+
+      .then(response => {
+
+        this.getUser(localStorage.getItem('token'));
+
+      })
+
+      .catch(event => {
+
+        alert('Oops... something went wrong...');
+
+      });
+
+  }
+
 
 
   handleChange(e) {
@@ -108,6 +134,11 @@ export class ProfileView extends React.Component {
     this.setState({ [e.target.Email]: e.target.value })
 
   }
+
+
+
+
+
 
 
 
@@ -161,11 +192,16 @@ export class ProfileView extends React.Component {
 
                         </p>
 
-                        <Link to={`/movies/${favoriteMovie}`}>
+                        <Link to={`/movies/${FavoriteMovie}`}>
 
-                          <Button size="sm" variant="info">Open</Button>
+                          <Button variant="info">Open</Button>
 
                         </Link>
+                        <Button variant="secondary" onClick={(event) => this.deletefromFavs(event, FavoriteMovie)}>
+
+                          Delete
+
+                        </Button>
 
 
 

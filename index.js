@@ -204,11 +204,11 @@ app.put(
   }
 );
 app.post(
-  "/users/:Name/Movies/:MovieID",
+  "/users/:Email/Movies/:MovieID",
   passport.authenticate("jwt", { session: false }),
   function(req, res) {
     Users.findOneAndUpdate(
-      { Name: req.params.Name },
+      { Email: req.params.Email },
       {
         $push: { Favoritemovies: req.params.MovieID }
       },
@@ -226,11 +226,11 @@ app.post(
 );
 
 app.delete(
-  "/users/:Name/Movies/:MovieID",
+  "/users/:Email/Movies/:MovieID",
   passport.authenticate("jwt", { session: false }),
   function(req, res) {
     Users.findOneAndUpdate(
-      { Name: req.params.Name },
+      { Email: req.params.Email },
       {
         $pull: { Favoritemovies: req.params.MovieID }
       },

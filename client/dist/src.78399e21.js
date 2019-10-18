@@ -38108,6 +38108,8 @@ var _reactRouterDom = require("react-router-dom");
 
 var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
 
+var _axios = _interopRequireDefault(require("axios"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -38148,6 +38150,25 @@ function (_React$Component) {
     value: function render() {
       var movie = this.props.movie;
       if (!movie) return null;
+
+      var addtoFavs = function addtoFavs(e) {
+        e.preventDefault();
+
+        _axios.default.post("https://my-flix-1098.herokuapp.com/users/".concat(localStorage.getItem('user'), "/Movies/").concat(movie._id), {
+          Email: localStorage.getItem('user')
+        }, {
+          headers: {
+            Authorization: "Bearer ".concat(localStorage.getItem('token'))
+          }
+        }).then(function (response) {
+          console.log(response);
+          alert('Movie has been added to your Favorite List!');
+        }).catch(function (event) {
+          console.log('error adding movie to list');
+          alert('Ooooops... Something went wrong!');
+        });
+      };
+
       return _react.default.createElement("div", {
         className: "movie-view"
       }, _react.default.createElement("div", {
@@ -38182,7 +38203,10 @@ function (_React$Component) {
         to: "/directors/".concat(movie.Director.Name)
       }, _react.default.createElement(_Button.default, {
         variant: "link"
-      }, "More"))), _react.default.createElement(_reactRouterDom.Link, {
+      }, "More"))), _react.default.createElement("div", null, _react.default.createElement(_Button.default, {
+        variant: "primary",
+        onClick: addtoFavs
+      }, "Add to your Favourites")), _react.default.createElement(_reactRouterDom.Link, {
         to: "/"
       }, _react.default.createElement(_Button.default, null, "Go Back")));
     }
@@ -38192,7 +38216,7 @@ function (_React$Component) {
 }(_react.default.Component);
 
 exports.MovieView = MovieView;
-},{"react":"../node_modules/react/index.js","./movie-view.scss":"../components/movie-view/movie-view.scss","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","react-bootstrap/Button":"../node_modules/react-bootstrap/Button.js"}],"../components/director-view/director-view.scss":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","./movie-view.scss":"../components/movie-view/movie-view.scss","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","react-bootstrap/Button":"../node_modules/react-bootstrap/Button.js","axios":"../node_modules/axios/index.js"}],"../components/director-view/director-view.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
@@ -39350,6 +39374,24 @@ function (_React$Component) {
       });
     }
   }, {
+    key: "deletefromFavs",
+    value: function deletefromFavs(event, FavoriteMovie) {
+      var _this3 = this;
+
+      event.preventDefault();
+      console.log(FavoriteMovie);
+
+      _axios.default.delete("https://my-flix-1098.herokuapp.com/users/".concat(localStorage.getItem('user'), "/Movies/").concat(FavoriteMovie), {
+        headers: {
+          Authorization: "Bearer ".concat(localStorage.getItem('token'))
+        }
+      }).then(function (response) {
+        _this3.getUser(localStorage.getItem('token'));
+      }).catch(function (event) {
+        alert('Oops... something went wrong...');
+      });
+    }
+  }, {
     key: "handleChange",
     value: function handleChange(e) {
       this.setState(_defineProperty({}, e.target.Email, e.target.value));
@@ -39357,6 +39399,8 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      var _this4 = this;
+
       var _this$state = this.state,
           Name = _this$state.Name,
           Email = _this$state.Email,
@@ -39379,11 +39423,15 @@ function (_React$Component) {
         }, JSON.parse(localStorage.getItem('movies')).find(function (movie) {
           return movie._id === favoriteMovie;
         }).Title), _react.default.createElement(_reactRouterDom.Link, {
-          to: "/movies/".concat(favoriteMovie)
+          to: "/movies/".concat(FavoriteMovie)
         }, _react.default.createElement(_Button.default, {
-          size: "sm",
           variant: "info"
-        }, "Open")));
+        }, "Open")), _react.default.createElement(_Button.default, {
+          variant: "secondary",
+          onClick: function onClick(event) {
+            return _this4.deletefromFavs(event, FavoriteMovie);
+          }
+        }, "Delete"));
       }))))), _react.default.createElement("div", null, _react.default.createElement(_reactRouterDom.Link, {
         to: "/"
       }, _react.default.createElement(_Button.default, null, "MOVIES")))));
@@ -39715,7 +39763,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51426" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57037" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
