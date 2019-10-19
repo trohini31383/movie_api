@@ -39381,7 +39381,7 @@ function (_React$Component) {
       event.preventDefault();
       console.log(FavoriteMovie);
 
-      _axios.default.delete("https://my-flix-1098.herokuapp.com/users/".concat(localStorage.getItem('user'), "/Movies/").concat(FavoriteMovie), {
+      _axios.default.delete("https://all-about-movies.herokuapp.com/users/".concat(localStorage.getItem('user'), "/Movies/").concat(FavoriteMovie), {
         headers: {
           Authorization: "Bearer ".concat(localStorage.getItem('token'))
         }
@@ -39763,7 +39763,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57037" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57348" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -107,7 +107,7 @@ export class ProfileView extends React.Component {
 
     console.log(FavoriteMovie);
 
-    axios.delete(`https://my-flix-1098.herokuapp.com/users/${localStorage.getItem('user')}/Movies/${FavoriteMovie}`, {
+    axios.delete(`https://all-about-movies.herokuapp.com/users/${localStorage.getItem('user')}/Movies/${FavoriteMovie}`, {
 
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
 
