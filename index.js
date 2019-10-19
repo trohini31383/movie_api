@@ -295,10 +295,10 @@ app.get("/users", passport.authenticate("jwt", { session: false }), function(
 });
 
 app.get(
-  "/users/:Name",
+  "/users/:Email",
   passport.authenticate("jwt", { session: false }),
   function(req, res) {
-    Users.findOne({ Name: req.params.Name })
+    Users.findOne({ Email: req.params.Email })
       .then(function(user) {
         res.json(user);
       })
