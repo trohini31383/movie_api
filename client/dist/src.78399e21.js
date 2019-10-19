@@ -38154,7 +38154,7 @@ function (_React$Component) {
       var addtoFavs = function addtoFavs(e) {
         e.preventDefault();
 
-        _axios.default.post("https://my-flix-1098.herokuapp.com/users/".concat(localStorage.getItem('user'), "/Movies/").concat(movie._id), {
+        _axios.default.post("https://all-about-movies.herokuapp.com/users/".concat(localStorage.getItem('user'), "/Movies/").concat(movie._id), {
           Email: localStorage.getItem('user')
         }, {
           headers: {

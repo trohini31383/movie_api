@@ -20,7 +20,7 @@ export class MovieView extends React.Component {
     const addtoFavs = (e) => {
 
       e.preventDefault();
-      axios.post(`https://my-flix-1098.herokuapp.com/users/${localStorage.getItem('user')}/Movies/${movie._id}`, {
+      axios.post(`https://all-about-movies.herokuapp.com/users/${localStorage.getItem('user')}/Movies/${movie._id}`, {
 
         Email: localStorage.getItem('user')
 
