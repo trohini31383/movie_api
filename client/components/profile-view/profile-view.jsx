@@ -101,13 +101,13 @@ export class ProfileView extends React.Component {
       });
 
   }
-  deletefromFavs(event, FavoriteMovie) {
+  deletefromFavs(event, Favoritemovie) {
 
     event.preventDefault();
 
-    console.log(FavoriteMovie);
+    console.log(Favoritemovie);
 
-    axios.delete(`https://all-about-movies.herokuapp.com/users/${localStorage.getItem('user')}/Movies/${FavoriteMovie}`, {
+    axios.delete(`https://all-about-movies.herokuapp.com/users/${localStorage.getItem('user')}/Movies/${Favoritemovie}`, {
 
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
 
@@ -186,18 +186,18 @@ export class ProfileView extends React.Component {
 
                       (<li key={Favoritemovie}>
 
-                        <p className="Favouritemovies">
+                        <p className="Favoritemovies">
 
-                          {JSON.parse(localStorage.getItem('movies')).find(movie => movie._id === favoriteMovie).Title}
+                          {JSON.parse(localStorage.getItem('movies')).find(movie => movie._id === Favoritemovie).Title}
 
                         </p>
 
-                        <Link to={`/movies/${FavoriteMovie}`}>
+                        <Link to={`/movies/${Favoritemovie}`}>
 
                           <Button variant="info">Open</Button>
 
                         </Link>
-                        <Button variant="secondary" onClick={(event) => this.deletefromFavs(event, FavoriteMovie)}>
+                        <Button variant="secondary" onClick={(event) => this.deletefromFavs(event, Favoritemovie)}>
 
                           Delete
 

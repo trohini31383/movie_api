@@ -39375,13 +39375,13 @@ function (_React$Component) {
     }
   }, {
     key: "deletefromFavs",
-    value: function deletefromFavs(event, FavoriteMovie) {
+    value: function deletefromFavs(event, Favoritemovie) {
       var _this3 = this;
 
       event.preventDefault();
-      console.log(FavoriteMovie);
+      console.log(Favoritemovie);
 
-      _axios.default.delete("https://all-about-movies.herokuapp.com/users/".concat(localStorage.getItem('user'), "/Movies/").concat(FavoriteMovie), {
+      _axios.default.delete("https://all-about-movies.herokuapp.com/users/".concat(localStorage.getItem('user'), "/Movies/").concat(Favoritemovie), {
         headers: {
           Authorization: "Bearer ".concat(localStorage.getItem('token'))
         }
@@ -39419,17 +39419,17 @@ function (_React$Component) {
         return _react.default.createElement("li", {
           key: Favoritemovie
         }, _react.default.createElement("p", {
-          className: "Favouritemovies"
+          className: "Favoritemovies"
         }, JSON.parse(localStorage.getItem('movies')).find(function (movie) {
-          return movie._id === favoriteMovie;
+          return movie._id === Favoritemovie;
         }).Title), _react.default.createElement(_reactRouterDom.Link, {
-          to: "/movies/".concat(FavoriteMovie)
+          to: "/movies/".concat(Favoritemovie)
         }, _react.default.createElement(_Button.default, {
           variant: "info"
         }, "Open")), _react.default.createElement(_Button.default, {
           variant: "secondary",
           onClick: function onClick(event) {
-            return _this4.deletefromFavs(event, FavoriteMovie);
+            return _this4.deletefromFavs(event, Favoritemovie);
           }
         }, "Delete"));
       }))))), _react.default.createElement("div", null, _react.default.createElement(_reactRouterDom.Link, {
@@ -39763,7 +39763,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57348" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57691" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
