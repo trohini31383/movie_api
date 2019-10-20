@@ -159,7 +159,7 @@ app.post(
   }
 );
 app.put(
-  "/users/:Name",
+  "/users/:Email",
   passport.authenticate("jwt", { session: false }),
   [
     check("Name", "Username is required").isLength({ min: 5 }),
@@ -180,7 +180,7 @@ app.put(
     }
 
     Users.findOneAndUpdate(
-      { Name: req.params.Name },
+      { Email: req.params.Email },
       {
         $set: {
           Name: req.body.Name,
@@ -250,24 +250,24 @@ app.delete(
   }
 );
 app.delete(
-  "/users/:Name",
+  "/users/:Email",
   passport.authenticate("jwt", { session: false }),
   function(req, res) {
-    Users.findOneAndRemove({ Name: req.params.Name })
+    Users.findOneAndRemove({ Email: req.params.Email })
 
       .then(function(user) {
         if (!user) {
           res
             .status(400)
             .send(
-              "Account with the name: " + req.params.Name + " was not found ."
+              "Account with the Email: " + req.params.Email + " was not found ."
             );
         } else {
           res
             .status(200)
             .send(
-              "Account with the username : " +
-                req.params.Name +
+              "Account with the Email : " +
+                req.params.Email +
                 " was successfully deleted."
             );
         }

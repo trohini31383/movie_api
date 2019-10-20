@@ -126,6 +126,9 @@ export class MainView extends React.Component {
         }
         } />
         <Route path="/users/:Email" render={({ match }) => { return <ProfileView userInfo={userInfo} /> }} />
+        <Route path="/update/:Email" render={() => <ProfileUpdate userInfo={userInfo} user={user} token={token} updateUser={data => this.updateUser(data)} />}
+
+        />
         <div>
           <Link to={`/users/${user}`}>
             <Button variant="info">Profile</Button>

@@ -39434,7 +39434,12 @@ function (_React$Component) {
         }, "Delete"));
       }))))), _react.default.createElement("div", null, _react.default.createElement(_reactRouterDom.Link, {
         to: "/"
-      }, _react.default.createElement(_Button.default, null, "MOVIES")))));
+      }, _react.default.createElement(_Button.default, null, "MOVIES")), _react.default.createElement(_reactRouterDom.Link, {
+        to: "/update/:Email"
+      }, _react.default.createElement(_Button.default, {
+        className: "button-update",
+        variant: "outline-secondary"
+      }, "Update profile")))));
     }
   }]);
 
@@ -39657,6 +39662,18 @@ function (_React$Component) {
           var match = _ref4.match;
           return _react.default.createElement(_profileView.ProfileView, {
             userInfo: userInfo
+          });
+        }
+      }), _react.default.createElement(_reactRouterDom.Route, {
+        path: "/update/:Email",
+        render: function render() {
+          return _react.default.createElement(ProfileUpdate, {
+            userInfo: userInfo,
+            user: user,
+            token: token,
+            updateUser: function updateUser(data) {
+              return _this4.updateUser(data);
+            }
           });
         }
       }), _react.default.createElement("div", null, _react.default.createElement(_reactRouterDom.Link, {

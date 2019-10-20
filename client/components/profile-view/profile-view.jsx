@@ -226,6 +226,11 @@ export class ProfileView extends React.Component {
               <Button>MOVIES</Button>
 
             </Link>
+            <Link to={`/update/:Email`}>
+
+              <Button className="button-update" variant="outline-secondary">Update profile</Button>
+
+            </Link>
 
 
           </div>
