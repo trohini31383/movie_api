@@ -115,7 +115,7 @@ export function ProfileUpdate(props) {
 
     e.preventDefault();
 
-    axios.delete(`https://all-abouy-movies.herokuapp.com/users/${user}`, {
+    axios.delete(`https://all-about-movies.herokuapp.com/users/${user}`, {
 
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
 
@@ -149,7 +149,7 @@ export function ProfileUpdate(props) {
 
       <div className="text-center">
 
-        <img className="update-img" src={updateLogo} />
+
 
         <p className="update-title">Please update your information below:</p>
 
