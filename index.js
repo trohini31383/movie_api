@@ -208,7 +208,7 @@ app.post(
   passport.authenticate("jwt", { session: false }),
   function(req, res) {
     Users.findOneAndUpdate(
-      { Name: req.params.Name },
+      { Email: req.params.Email },
       {
         $addToSet: { Favourites: req.params.MovieID }
       },
