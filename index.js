@@ -210,7 +210,7 @@ app.post(
     Users.findOneAndUpdate(
       { Name: req.params.Name },
       {
-        $push: { Favoritemovies: req.params.MovieID }
+        $addToSet: { Favourites: req.params.MovieID }
       },
       { new: true },
       function(err, updatedUser) {
