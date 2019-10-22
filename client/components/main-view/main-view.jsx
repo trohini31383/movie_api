@@ -53,6 +53,7 @@ export class MainView extends React.Component {
     })
       .then(response => {
         // Assign the result to the state
+        localStorage.setItem('movies', JSON.stringify(response.data));
         this.setState({
           movies: response.data
         });
@@ -93,7 +94,6 @@ export class MainView extends React.Component {
     localStorage.removeItem('token');
 
     localStorage.removeItem('user');
-
     window.open('/', '_self');
   }
 

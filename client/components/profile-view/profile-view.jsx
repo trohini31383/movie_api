@@ -75,59 +75,33 @@ export class ProfileView extends React.Component {
     })
 
       .then(response => {
-
+        console.log(response)
         this.setState({
-
           userData: response.data,
-
           Name: response.data.Name,
-
           Password: response.data.Password,
-
           Email: response.data.Email,
-
           Birthday: response.data.Birthday,
-
           Favoritemovies: response.data.Favoritemovies
-
         });
-
       })
-
       .catch(function (error) {
-
         console.log(error);
-
       });
 
   }
   deletefromFavs(event, Favoritemovie) {
-
     event.preventDefault();
-
-    console.log(Favoritemovie);
-
     axios.delete(`https://all-about-movies.herokuapp.com/users/${localStorage.getItem('user')}/Movies/${Favoritemovie}`, {
-
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
-
     })
-
       .then(response => {
-
         this.getUser(localStorage.getItem('token'));
-
       })
-
       .catch(event => {
-
         alert('Oops... something went wrong...');
-
       });
-
   }
-
-
 
   handleChange(e) {
 
@@ -135,15 +109,7 @@ export class ProfileView extends React.Component {
 
   }
 
-
-
-
-
-
-
-
   render() {
-
     const { Name, Email, Birthday, Favoritemovies } = this.state;
 
 
@@ -187,7 +153,6 @@ export class ProfileView extends React.Component {
                       (<li key={Favoritemovie}>
 
                         <p className="Favoritemovies">
-
                           {JSON.parse(localStorage.getItem('movies')).find(movie => movie._id === Favoritemovie).Title}
 
                         </p>

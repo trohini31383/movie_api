@@ -38141,6 +38141,23 @@ function (_React$Component) {
     _classCallCheck(this, MovieView);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(MovieView).call(this, props));
+
+    _this.addtoFavs = function () {
+      _axios.default.post("https://all-about-movies.herokuapp.com/users/".concat(localStorage.getItem('user'), "/Movies/").concat(_this.props.movie._id), {
+        Email: localStorage.getItem('user')
+      }, {
+        headers: {
+          Authorization: "Bearer ".concat(localStorage.getItem('token'))
+        }
+      }).then(function (response) {
+        console.log(response);
+        alert('Movie has been added to your Favorite List!');
+      }).catch(function (event) {
+        console.log('error adding movie to list');
+        alert('Ooooops... Something went wrong!');
+      });
+    };
+
     _this.state = {};
     return _this;
   }
@@ -38150,25 +38167,6 @@ function (_React$Component) {
     value: function render() {
       var movie = this.props.movie;
       if (!movie) return null;
-
-      var addtoFavs = function addtoFavs(e) {
-        e.preventDefault();
-
-        _axios.default.post("https://all-about-movies.herokuapp.com/users/".concat(localStorage.getItem('user'), "/Movies/").concat(movie._id), {
-          Email: localStorage.getItem('user')
-        }, {
-          headers: {
-            Authorization: "Bearer ".concat(localStorage.getItem('token'))
-          }
-        }).then(function (response) {
-          console.log(response);
-          alert('Movie has been added to your Favorite List!');
-        }).catch(function (event) {
-          console.log('error adding movie to list');
-          alert('Ooooops... Something went wrong!');
-        });
-      };
-
       return _react.default.createElement("div", {
         className: "movie-view"
       }, _react.default.createElement("div", {
@@ -38205,7 +38203,7 @@ function (_React$Component) {
         variant: "link"
       }, "More"))), _react.default.createElement("div", null, _react.default.createElement(_Button.default, {
         variant: "primary",
-        onClick: addtoFavs
+        onClick: this.addtoFavs
       }, "Add to your Favourites")), _react.default.createElement(_reactRouterDom.Link, {
         to: "/"
       }, _react.default.createElement(_Button.default, null, "Go Back")));
@@ -39361,6 +39359,8 @@ function (_React$Component) {
           Authorization: "Bearer ".concat(token)
         }
       }).then(function (response) {
+        console.log(response);
+
         _this2.setState({
           userData: response.data,
           Name: response.data.Name,
@@ -39379,7 +39379,6 @@ function (_React$Component) {
       var _this3 = this;
 
       event.preventDefault();
-      console.log(Favoritemovie);
 
       _axios.default.delete("https://all-about-movies.herokuapp.com/users/".concat(localStorage.getItem('user'), "/Movies/").concat(Favoritemovie), {
         headers: {
@@ -39728,6 +39727,8 @@ function (_React$Component) {
         }
       }).then(function (response) {
         // Assign the result to the state
+        localStorage.setItem('movies', JSON.stringify(response.data));
+
         _this2.setState({
           movies: response.data
         });
@@ -39951,7 +39952,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55789" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55894" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

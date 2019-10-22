@@ -12,41 +12,40 @@ export class MovieView extends React.Component {
     this.state = {};
   }
 
+  addtoFavs = () => {
+    axios.post(`https://all-about-movies.herokuapp.com/users/${localStorage.getItem('user')}/Movies/${this.props.movie._id}`, {
+
+      Email: localStorage.getItem('user')
+
+    }, {
+
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+
+    })
+
+      .then(response => {
+
+        console.log(response);
+
+        alert('Movie has been added to your Favorite List!');
+
+      })
+
+      .catch(event => {
+
+        console.log('error adding movie to list');
+
+        alert('Ooooops... Something went wrong!');
+
+      });
+
+  };
 
   render() {
     const { movie } = this.props;
 
     if (!movie) return null;
-    const addtoFavs = (e) => {
 
-      e.preventDefault();
-      axios.post(`https://all-about-movies.herokuapp.com/users/${localStorage.getItem('user')}/Movies/${movie._id}`, {
-
-        Email: localStorage.getItem('user')
-
-      }, {
-
-        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
-
-      })
-
-        .then(response => {
-
-          console.log(response);
-
-          alert('Movie has been added to your Favorite List!');
-
-        })
-
-        .catch(event => {
-
-          console.log('error adding movie to list');
-
-          alert('Ooooops... Something went wrong!');
-
-        });
-
-    };
 
     return (
       <div className="movie-view">
@@ -79,7 +78,7 @@ export class MovieView extends React.Component {
         </div>
         <div>
 
-          <Button variant='primary' onClick={addtoFavs}>Add to your Favourites</Button>
+          <Button variant='primary' onClick={this.addtoFavs}>Add to your Favourites</Button>
         </div>
 
 
