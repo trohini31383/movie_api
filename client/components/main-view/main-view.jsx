@@ -93,6 +93,7 @@ export class MainView extends React.Component {
     localStorage.removeItem('token');
 
     localStorage.removeItem('user');
+
     window.open('/', '_self');
   }
 
