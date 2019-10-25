@@ -110,54 +110,56 @@ app.get(
       });
   }
 );
-app.post(
-  "/users",
+app.post("/users", function(req, res) {
+  req.checkBody("Name", "Username is required").notEmpty();
 
-  [
-    check("Name", "Username is required").isLength({ min: 5 }),
-    check(
+  req
+    .checkBody(
       "Name",
       "Username contains non alphanumeric characters - not allowed."
-    ).isAlphanumeric(),
-    check("Password", "Password is required")
-      .not()
-      .isEmpty(),
-    check("Email", "Email does not appear to be valid").isEmail()
-  ],
-  (req, res) => {
-    var errors = validationResult(req);
+    )
+    .isAlphanumeric();
 
-    if (!errors.isEmpty()) {
-      return res.status(422).json({ errors: errors.array() });
-    }
+  req.checkBody("Password", "Password is required").notEmpty();
 
-    var hashedPassword = Users.hashPassword(req.body.Password);
-    Users.findOne({ Name: req.body.Name })
-      .then(function(user) {
-        if (user) {
-          return res.status(400).send(req.body.Name + "already exists");
-        } else {
-          Users.create({
-            Name: req.body.Name,
-            Password: hashedPassword,
-            Email: req.body.Email,
-            Birthday: req.body.Birthday
-          })
-            .then(function(user) {
-              res.status(201).json(user);
-            })
-            .catch(function(error) {
-              console.error(error);
-              res.status(500).send("Error:" + error);
-            });
-        }
-      })
-      .catch(function(error) {
-        console.error(error);
-        res.status(500).send("Error:" + error);
-      });
+  req.checkBody("Email", "Email is required").notEmpty();
+
+  req.checkBody("Email", "Email does not appear to be valid").isEmail();
+
+  // check the validation object for errors
+
+  var errors = req.validationErrors();
+
+  if (errors) {
+    return res.status(422).json({ errors: errors });
   }
-);
+
+  var hashedPassword = Users.hashPassword(req.body.Password);
+  Users.findOne({ Name: req.body.Name })
+    .then(function(user) {
+      if (user) {
+        return res.status(400).send(req.body.Name + "already exists");
+      } else {
+        Users.create({
+          Name: req.body.Name,
+          Password: hashedPassword,
+          Email: req.body.Email,
+          Birthday: req.body.Birthday
+        })
+          .then(function(user) {
+            res.status(201).json(user);
+          })
+          .catch(function(error) {
+            console.error(error);
+            res.status(500).send("Error:" + error);
+          });
+      }
+    })
+    .catch(function(error) {
+      console.error(error);
+      res.status(500).send("Error:" + error);
+    });
+});
 app.put(
   "/users/:Email",
   passport.authenticate("jwt", { session: false }),
