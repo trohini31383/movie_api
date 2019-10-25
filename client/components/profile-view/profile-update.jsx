@@ -51,7 +51,7 @@ export function ProfileUpdate(props) {
 
 
 
-  const handleUpdate = e => {
+  const handleUpdate = (e) => {
 
     e.preventDefault();
 
