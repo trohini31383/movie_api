@@ -39521,6 +39521,7 @@ function ProfileUpdate(props) {
       Email: Email,
       Birthday: Birthday
     };
+    console.log(userInfo);
 
     _axios.default.put("https://all-about-movies.herokuapp.com/users/".concat(user), userInfo, {
       headers: {
@@ -39536,7 +39537,7 @@ function ProfileUpdate(props) {
         errorMessage += err.msg;
       });
       alert("Oops there was an error ".concat(errorMessage));
-      console.log("Error updating the user info.");
+      console.log('error updating profile');
     });
   };
 
@@ -39687,6 +39688,8 @@ function (_React$Component) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(MainView).call(this, props));
     _this.state = {
       movies: [],
+      Email: '',
+      Birthday: '',
       user: null,
       userInfo: {}
     };
@@ -39752,10 +39755,21 @@ function (_React$Component) {
       });
     }
   }, {
+    key: "updateUser",
+    value: function updateUser(data) {
+      this.setState({
+        userInfo: data
+      });
+      localStorage.setItem('user', data.Email);
+    }
+  }, {
     key: "onLogout",
     value: function onLogout() {
       localStorage.removeItem('token');
       localStorage.removeItem('user');
+      this.setState({
+        user: null
+      });
       window.open('/', '_self');
     }
   }, {
@@ -39952,7 +39966,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58409" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58675" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

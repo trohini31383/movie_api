@@ -17,6 +17,8 @@ export class MainView extends React.Component {
     super(props)
     this.state = {
       movies: [],
+      Email: '',
+      Birthday: '',
       user: null,
       userInfo: {}
 
@@ -42,6 +44,7 @@ export class MainView extends React.Component {
     this.setState({
       user: authData.user.Email
     });
+
     localStorage.setItem('token', authData.token);
     localStorage.setItem('user', authData.user.Email);
     this.getMovies(authData.token);
@@ -85,6 +88,17 @@ export class MainView extends React.Component {
       });
 
   }
+  updateUser(data) {
+
+    this.setState({
+
+      userInfo: data
+
+    });
+
+    localStorage.setItem('user', data.Email);
+
+  }
 
 
 
@@ -94,6 +108,11 @@ export class MainView extends React.Component {
     localStorage.removeItem('token');
 
     localStorage.removeItem('user');
+    this.setState({
+
+      user: null
+
+    })
     window.open('/', '_self');
   }
 

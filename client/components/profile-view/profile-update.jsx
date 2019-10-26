@@ -66,6 +66,7 @@ export function ProfileUpdate(props) {
       Birthday: Birthday
 
     };
+    console.log(userInfo);
 
     axios
 
@@ -79,6 +80,7 @@ export function ProfileUpdate(props) {
 
         },
 
+
       )
 
       .then(response => {
@@ -86,6 +88,7 @@ export function ProfileUpdate(props) {
         props.updateUser(userInfo);
 
         alert('Your profile was updated successfully');
+
 
       })
 
@@ -103,7 +106,7 @@ export function ProfileUpdate(props) {
 
         alert(`Oops there was an error ${errorMessage}`)
 
-        console.log(`Error updating the user info.`);
+        console.log('error updating profile');
 
       });
 
