@@ -160,19 +160,11 @@ app.put(
   "/users/:Email",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    const updateParams = {
-      Name: req.body.Name,
-      Password: req.body.Password,
-      Email: req.body.Email
-    }
-
-    if (!Password) {
-      delete updateParams.Password
-    }
+    
     Users.findOneAndUpdate(
       { Email: req.params.Email },
       {
-        $set: {updateParams}
+        $set: {...req.body}
       },
 
       { new: true },
