@@ -159,9 +159,7 @@ app.post(
 app.put(
   "/users/:Email",
   passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    var errors = req.validationErrors();
-    
+  (req, res) => {    
     Users.findOneAndUpdate(
       { Email: req.params.Email },
       {
