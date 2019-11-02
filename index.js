@@ -165,9 +165,6 @@ app.put(
       "Name",
       "Username contains non alphanumeric characters - not allowed."
     ).isAlphanumeric(),
-    check("Password", "Password is required")
-      .not()
-      .isEmpty(),
     check("Email", "Email does not appear to be valid").isEmail()
   ],
   (req, res) => {
@@ -176,7 +173,7 @@ app.put(
     if (errors) {
       return res.status(422).json({ errors: errors });
     }
-    console.log(req.body)
+    console.log
     Users.findOneAndUpdate(
       { Email: req.params.Email },
       {
