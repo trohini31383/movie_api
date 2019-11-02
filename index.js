@@ -176,16 +176,11 @@ app.put(
     if (errors) {
       return res.status(422).json({ errors: errors });
     }
-
+    console.log(req.body)
     Users.findOneAndUpdate(
       { Email: req.params.Email },
       {
-        $set: {
-          Name: req.body.Name,
-          Password: req.body.Password,
-          Email: req.body.Email,
-          Birthday: req.body.Birthday
-        }
+        $set: {...req.body}
       },
 
       { new: true },
