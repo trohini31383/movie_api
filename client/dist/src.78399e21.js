@@ -38202,11 +38202,14 @@ function (_React$Component) {
       }, _react.default.createElement(_Button.default, {
         variant: "link"
       }, "More"))), _react.default.createElement("div", null, _react.default.createElement(_Button.default, {
+        className: "fav-btn",
         variant: "primary",
         onClick: this.addtoFavs
       }, "Add to your Favourites")), _react.default.createElement(_reactRouterDom.Link, {
         to: "/"
-      }, _react.default.createElement(_Button.default, null, "Go Back")));
+      }, _react.default.createElement(_Button.default, {
+        className: "back-btn"
+      }, "Go Back")));
     }
   }]);
 
@@ -38314,6 +38317,8 @@ var _react = _interopRequireDefault(require("react"));
 
 var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
 
+var _Card = _interopRequireDefault(require("react-bootstrap/Card"));
+
 require("./genre-view.scss");
 
 var _reactRouterDom = require("react-router-dom");
@@ -38358,19 +38363,19 @@ function (_React$Component) {
     value: function render() {
       var Genre = this.props.Genre;
       if (!Genre) return null;
-      return _react.default.createElement("div", {
-        className: "movie-genre"
-      }, _react.default.createElement("div", {
-        className: "label"
-      }, _react.default.createElement("b", null, "Genre")), _react.default.createElement("div", {
-        className: "value"
-      }, Genre.Name), _react.default.createElement("div", {
-        className: "label"
-      }, _react.default.createElement("b", null, "Description")), _react.default.createElement("div", {
-        className: "value"
-      }, Genre.Description), _react.default.createElement(_reactRouterDom.Link, {
+      return _react.default.createElement(_Card.default, {
+        className: "genre-info",
+        style: {
+          width: '18rem'
+        }
+      }, _react.default.createElement(_Card.default.Body, null, _react.default.createElement(_Card.default.Title, {
+        className: "genre-name"
+      }, Genre.Name), _react.default.createElement(_Card.default.Text, null, "Description: ", _react.default.createElement("br", null), Genre.Description, _react.default.createElement("br", null), _react.default.createElement("br", null)), _react.default.createElement(_reactRouterDom.Link, {
         to: "/"
-      }, _react.default.createElement(_Button.default, null, "Back")));
+      }, _react.default.createElement(_Button.default, {
+        className: "button-card",
+        variant: "info"
+      }, "Back"))));
     }
   }]);
 
@@ -38378,7 +38383,7 @@ function (_React$Component) {
 }(_react.default.Component);
 
 exports.GenreView = GenreView;
-},{"react":"../node_modules/react/index.js","react-bootstrap/Button":"../node_modules/react-bootstrap/Button.js","./genre-view.scss":"../components/genre-view/genre-view.scss","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js"}],"../node_modules/invariant/browser.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-bootstrap/Button":"../node_modules/react-bootstrap/Button.js","react-bootstrap/Card":"../node_modules/react-bootstrap/Card.js","./genre-view.scss":"../components/genre-view/genre-view.scss","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js"}],"../node_modules/invariant/browser.js":[function(require,module,exports) {
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
  *
@@ -39464,6 +39469,8 @@ var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
 
 require("./profile-view.scss");
 
+var _Container = _interopRequireDefault(require("react-bootstrap/Container"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
@@ -39479,12 +39486,6 @@ function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) ||
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 function ProfileUpdate(props) {
-  var _props$userInfo = props.userInfo,
-      oldName = _props$userInfo.Name,
-      oldPassword = _props$userInfo.Password,
-      oldEmail = _props$userInfo.Email,
-      oldBirthday = _props$userInfo.Birthday;
-
   var _useState = (0, _react.useState)(''),
       _useState2 = _slicedToArray(_useState, 2),
       Name = _useState2[0],
@@ -39492,36 +39493,43 @@ function ProfileUpdate(props) {
 
   var _useState3 = (0, _react.useState)(''),
       _useState4 = _slicedToArray(_useState3, 2),
-      Password = _useState4[0],
-      setPassword = _useState4[1];
+      Email = _useState4[0],
+      setEmail = _useState4[1];
 
   var _useState5 = (0, _react.useState)(''),
       _useState6 = _slicedToArray(_useState5, 2),
-      Email = _useState6[0],
-      setEmail = _useState6[1];
+      Password = _useState6[0],
+      setPassword = _useState6[1];
 
-  var _useState7 = (0, _react.useState)(''),
+  var _useState7 = (0, _react.useState)(false),
       _useState8 = _slicedToArray(_useState7, 2),
-      Birthday = _useState8[0],
-      setBirthday = _useState8[1];
+      loaded = _useState8[0],
+      setLoaded = _useState8[1];
 
-  (0, _react.useEffect)(function () {
-    setName(oldName);
-    setPassword(oldPassword);
-    setEmail(oldEmail);
-    setBirthday(oldBirthday);
-  }, [oldName, oldPassword, oldEmail, oldBirthday]);
   var user = props.user;
+  (0, _react.useEffect)(function () {
+    _axios.default.get("https://all-about-movies.herokuapp.com/users/".concat(user), {
+      headers: {
+        Authorization: "Bearer ".concat(localStorage.getItem("token"))
+      }
+    }).then(function (user) {
+      setName(user.data.Name);
+      setEmail(user.data.Email);
+      setLoaded(true);
+    });
+  }, []);
 
   var handleUpdate = function handleUpdate(e) {
     e.preventDefault();
     var userInfo = {
       Name: Name,
       Password: Password,
-      Email: Email,
-      Birthday: Birthday
+      Email: Email
     };
-    console.log(userInfo);
+
+    if (Password === '') {
+      delete userInfo.Password;
+    }
 
     _axios.default.put("https://all-about-movies.herokuapp.com/users/".concat(user), userInfo, {
       headers: {
@@ -39558,7 +39566,11 @@ function ProfileUpdate(props) {
     });
   };
 
-  return _react.default.createElement(_Form.default, {
+  if (!loaded) {
+    return _react.default.createElement("div", null, "Loading...");
+  }
+
+  return _react.default.createElement(_Container.default, null, _react.default.createElement(_Form.default, {
     className: "update-form"
   }, _react.default.createElement("div", {
     className: "text-center"
@@ -39593,16 +39605,7 @@ function ProfileUpdate(props) {
     }
   }), _react.default.createElement(_Form.default.Text, {
     className: "text-muted"
-  }, "We'll never share your email with anyone else.")), _react.default.createElement(_Form.default.Group, {
-    controlId: "formBirthday"
-  }, _react.default.createElement(_Form.default.Label, null, "Birthday"), _react.default.createElement(_Form.default.Control, {
-    type: "date",
-    placeholder: "MM/DD/YYYY",
-    value: Birthday,
-    onChange: function onChange(e) {
-      return setBirthday(e.target.value);
-    }
-  })), _react.default.createElement("div", {
+  }, "We'll never share your email with anyone else.")), _react.default.createElement("div", {
     className: "text-center"
   }, _react.default.createElement(_Button.default, {
     className: "btn-register",
@@ -39614,9 +39617,9 @@ function ProfileUpdate(props) {
     variant: "danger",
     type: "submit",
     onClick: handleDelete
-  }, "Delete profile")));
+  }, "Delete profile"))));
 }
-},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","react-bootstrap/Form":"../node_modules/react-bootstrap/Form.js","react-bootstrap/Button":"../node_modules/react-bootstrap/Button.js","./profile-view.scss":"../components/profile-view/profile-view.scss"}],"../components/main-view/main-view.scss":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","react-bootstrap/Form":"../node_modules/react-bootstrap/Form.js","react-bootstrap/Button":"../node_modules/react-bootstrap/Button.js","./profile-view.scss":"../components/profile-view/profile-view.scss","react-bootstrap/Container":"../node_modules/react-bootstrap/Container.js"}],"../components/main-view/main-view.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
@@ -39706,18 +39709,19 @@ function (_React$Component) {
           user: localStorage.getItem('user')
         });
         this.getMovies(accessToken);
+        this.getUser(accessToken);
       }
     }
   }, {
     key: "onLoggedIn",
     value: function onLoggedIn(authData) {
-      console.log(authData);
       this.setState({
         user: authData.user.Email
       });
       localStorage.setItem('token', authData.token);
       localStorage.setItem('user', authData.user.Email);
       this.getMovies(authData.token);
+      this.getUser(authData.token);
     }
   }, {
     key: "getMovies",
@@ -39744,12 +39748,14 @@ function (_React$Component) {
     value: function getUser(token) {
       var _this3 = this;
 
-      _axios.default.get('https://all-about-movies.herokuapp.com/users', {
+      _axios.default.get("https://all-about-movies.herokuapp.com/users/".concat(this.state.user), {
         headers: {
           Authorization: "Bearer ".concat(token)
         }
       }).then(function (response) {
-        _this3.props.setLoggedUser(response.data);
+        _this3.setState({
+          userInfo: response.data
+        });
       }).catch(function (error) {
         console.log(error);
       });
@@ -39854,7 +39860,6 @@ function (_React$Component) {
         path: "/update/:Email",
         render: function render() {
           return _react.default.createElement(_profileUpdate.ProfileUpdate, {
-            userInfo: userInfo,
             user: user,
             token: token,
             updateUser: function updateUser(data) {
@@ -39966,7 +39971,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58675" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51471" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

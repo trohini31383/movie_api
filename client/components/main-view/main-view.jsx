@@ -35,12 +35,12 @@ export class MainView extends React.Component {
         user: localStorage.getItem('user')
       });
       this.getMovies(accessToken);
+      this.getUser(accessToken);
     }
   }
 
 
   onLoggedIn(authData) {
-    console.log(authData);
     this.setState({
       user: authData.user.Email
     });
@@ -48,6 +48,7 @@ export class MainView extends React.Component {
     localStorage.setItem('token', authData.token);
     localStorage.setItem('user', authData.user.Email);
     this.getMovies(authData.token);
+    this.getUser(authData.token)
   }
 
   getMovies(token) {
@@ -65,20 +66,18 @@ export class MainView extends React.Component {
         console.log(error);
       });
   }
-  getUser(token) {
 
+  getUser(token) {
     axios
 
-      .get('https://all-about-movies.herokuapp.com/users', {
+      .get(`https://all-about-movies.herokuapp.com/users/${this.state.user}`, {
 
         headers: { Authorization: `Bearer ${token}` }
 
       })
 
       .then(response => {
-
-        this.props.setLoggedUser(response.data);
-
+        this.setState({ userInfo: response.data })
       })
 
       .catch(error => {
@@ -121,9 +120,8 @@ export class MainView extends React.Component {
 
 
   render() {
+
     const { movies, user, token, userInfo } = this.state
-
-
     if (!movies) return <div className="main-view" />;
 
     return (
@@ -147,7 +145,7 @@ export class MainView extends React.Component {
         }
         } />
         <Route path="/users/:Email" render={({ match }) => { return <ProfileView userInfo={userInfo} /> }} />
-        <Route path="/update/:Email" render={() => <ProfileUpdate userInfo={userInfo} user={user} token={token} updateUser={data => this.updateUser(data)} />}
+        <Route path="/update/:Email" render={() => <ProfileUpdate user={user} token={token} updateUser={data => this.updateUser(data)} />}
 
         />
         <div>
