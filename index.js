@@ -159,33 +159,12 @@ app.post(
 app.put(
   "/users/:Email",
   passport.authenticate("jwt", { session: false }),
-  [
-    check("Name", "Username is required").isLength({ min: 5 }),
-    check(
-      "Name",
-      "Username contains non alphanumeric characters - not allowed."
-    ).isAlphanumeric(),
-    check("Password", "Password is required")
-      .not()
-      .isEmpty(),
-    check("Email", "Email does not appear to be valid").isEmail()
-  ],
   (req, res) => {
-    var errors = req.validationErrors();
-
-    if (errors) {
-      return res.status(422).json({ errors: errors });
-    }
-
+    
     Users.findOneAndUpdate(
       { Email: req.params.Email },
       {
-        $set: {
-          Name: req.body.Name,
-          Password: req.body.Password,
-          Email: req.body.Email,
-          Birthday: req.body.Birthday
-        }
+        $set: {...req.body}
       },
 
       { new: true },
