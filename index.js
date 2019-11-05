@@ -1,3 +1,4 @@
+const path = require("path");
 const mongoose = require("mongoose");
 const Models = require("./models.js");
 const express = require("express");
@@ -25,19 +26,19 @@ app.use(bodyParser.json());
 app.use(cors());
 var allowedOrigins = ["http://localhost:1234"];
 var auth = require("./auth")(app);
-app.get("/", function(req, res) {
+app.get("/", function (req, res) {
   res.send("Welcome to my movie club!");
 });
 
-app.get("/movies", passport.authenticate("jwt", { session: false }), function(
+app.get("/movies", passport.authenticate("jwt", { session: false }), function (
   req,
   res
 ) {
   Movies.find()
-    .then(function(movies) {
+    .then(function (movies) {
       res.status(201).json(movies);
     })
-    .catch(function(err) {
+    .catch(function (err) {
       console.error(err);
       res.status(500).send("Error: " + err);
     });
@@ -46,19 +47,19 @@ app.get("/movies", passport.authenticate("jwt", { session: false }), function(
 app.get(
   "/movies/genre/:Title",
   passport.authenticate("jwt", { session: false }),
-  function(req, res) {
+  function (req, res) {
     Movies.findOne({ Title: req.params.Title })
 
-      .then(function(movie) {
+      .then(function (movie) {
         if (movie) {
           res
             .status(201)
             .send(
               "Movie with the title : " +
-                movie.Title +
-                " is  a " +
-                movie.Genre.Name +
-                " movie ."
+              movie.Title +
+              " is  a " +
+              movie.Genre.Name +
+              " movie ."
             );
         } else {
           res
@@ -69,7 +70,7 @@ app.get(
         }
       })
 
-      .catch(function(err) {
+      .catch(function (err) {
         console.error(err);
 
         res.status(500).send("Error:" + err);
@@ -79,14 +80,14 @@ app.get(
 app.get(
   "/movies/directors/:Name",
   passport.authenticate("jwt", { session: false }),
-  function(req, res) {
+  function (req, res) {
     Movies.findOne({ "Director.Name": req.params.Name })
 
-      .then(function(movies) {
+      .then(function (movies) {
         res.json(movies.Director);
       })
 
-      .catch(function(err) {
+      .catch(function (err) {
         console.error(err);
 
         res.status(500).send("Error:" + err);
@@ -96,14 +97,14 @@ app.get(
 app.get(
   "/movies/:Title",
   passport.authenticate("jwt", { session: false }),
-  function(req, res) {
+  function (req, res) {
     Movies.findOne({ Title: req.params.Title })
 
-      .then(function(movies) {
+      .then(function (movies) {
         res.json(movies);
       })
 
-      .catch(function(err) {
+      .catch(function (err) {
         console.error(err);
 
         res.status(500).send("Error:" + err);
@@ -131,7 +132,7 @@ app.post(
     }
     var hashedPassword = Users.hashPassword(req.body.Password);
     Users.findOne({ Name: req.body.Name })
-      .then(function(user) {
+      .then(function (user) {
         if (user) {
           return res.status(400).send(req.body.Name + "already exists");
         } else {
@@ -141,16 +142,16 @@ app.post(
             Email: req.body.Email,
             Birthday: req.body.Birthday
           })
-            .then(function(user) {
+            .then(function (user) {
               res.status(201).json(user);
             })
-            .catch(function(error) {
+            .catch(function (error) {
               console.error(error);
               res.status(500).send("Error:" + error);
             });
         }
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.error(error);
         res.status(500).send("Error:" + error);
       });
@@ -160,15 +161,15 @@ app.put(
   "/users/:Email",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    
+
     Users.findOneAndUpdate(
       { Email: req.params.Email },
       {
-        $set: {...req.body}
+        $set: { ...req.body }
       },
 
       { new: true },
-      function(err, updatedUser) {
+      function (err, updatedUser) {
         if (err) {
           console.error(err);
 
@@ -183,14 +184,14 @@ app.put(
 app.post(
   "/users/:Email/Movies/:MovieID",
   passport.authenticate("jwt", { session: false }),
-  function(req, res) {
+  function (req, res) {
     Users.findOneAndUpdate(
       { Email: req.params.Email },
       {
         $addToSet: { Favoritemovies: req.params.MovieID }
       },
       { new: true },
-      function(err, updatedUser) {
+      function (err, updatedUser) {
         if (err) {
           console.error(err);
           res.status(500).send("Error: " + err);
@@ -205,7 +206,7 @@ app.post(
 app.delete(
   "/users/:Email/Movies/:MovieID",
   passport.authenticate("jwt", { session: false }),
-  function(req, res) {
+  function (req, res) {
     Users.findOneAndUpdate(
       { Email: req.params.Email },
       {
@@ -214,7 +215,7 @@ app.delete(
 
       { new: true },
 
-      function(err, updatedUser) {
+      function (err, updatedUser) {
         if (err) {
           console.error(err);
 
@@ -229,10 +230,10 @@ app.delete(
 app.delete(
   "/users/:Email",
   passport.authenticate("jwt", { session: false }),
-  function(req, res) {
+  function (req, res) {
     Users.findOneAndRemove({ Email: req.params.Email })
 
-      .then(function(user) {
+      .then(function (user) {
         if (!user) {
           res
             .status(400)
@@ -244,28 +245,28 @@ app.delete(
             .status(200)
             .send(
               "Account with the Email : " +
-                req.params.Email +
-                " was successfully deleted."
+              req.params.Email +
+              " was successfully deleted."
             );
         }
       })
 
-      .catch(function(err) {
+      .catch(function (err) {
         console.error(err.stack);
 
         res.status(500).send("Error: " + err);
       });
   }
 );
-app.get("/users", passport.authenticate("jwt", { session: false }), function(
+app.get("/users", passport.authenticate("jwt", { session: false }), function (
   req,
   res
 ) {
   Users.find()
-    .then(function(users) {
+    .then(function (users) {
       res.status(201).json(users);
     })
-    .catch(function(err) {
+    .catch(function (err) {
       console.error(err);
       res.status(500).send("Error: " + err);
     });
@@ -274,12 +275,12 @@ app.get("/users", passport.authenticate("jwt", { session: false }), function(
 app.get(
   "/users/:Email",
   passport.authenticate("jwt", { session: false }),
-  function(req, res) {
+  function (req, res) {
     Users.findOne({ Email: req.params.Email })
-      .then(function(user) {
+      .then(function (user) {
         res.json(user);
       })
-      .catch(function(err) {
+      .catch(function (err) {
         console.error(err);
 
         res.status(500).send("Error:" + err);
@@ -287,11 +288,15 @@ app.get(
   }
 );
 app.use(express.static("public"));
-app.use(function(err, req, res, next) {
+app.use('/client', express.static(path.join(__dirname, 'dist')));
+app.get("/client/*", (req, res) => {
+  res.sendFile(path.join(__dirname, "dist", "index.html"));
+});
+app.use(function (err, req, res, next) {
   console.error(err.stack);
   res.status(500).send("Something broke!");
 });
 var port = process.env.PORT || 3000;
-app.listen(port, "0.0.0.0", function() {
+app.listen(port, "0.0.0.0", function () {
   console.log("Listening on Port 3000");
 });
