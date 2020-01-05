@@ -49,6 +49,8 @@ export class MovieView extends React.Component {
 
     return (
       <div className="movie-view">
+        <img className="movie-poster" src={movie.imageURL} /></div>
+      <div className="movie-view">
         <div className="movie-title">
           <div className="label"><b>Title</b></div>
           <div className="value">{movie.Title}</div>
@@ -78,13 +80,13 @@ export class MovieView extends React.Component {
         </div>
         <div>
 
-          <Button className='fav-btn' variant='primary' onClick={this.addtoFavs}>Add to your Favourites</Button>
+          <Button variant='primary' onClick={this.addtoFavs}>Add to your Favourites</Button>
         </div>
 
 
 
         <Link to={`/`}>
-          <Button className='back-btn'>Go Back</Button>
+          <Button>Go Back</Button>
         </Link>
       </div >
     );

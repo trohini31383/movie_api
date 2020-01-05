@@ -13,7 +13,7 @@ export class MovieCard extends React.Component {
 
     return (
       <Card style={{ width: '16rem' }}>
-        <Card.Img variant="top" src="../ image.jpg" />
+        <Card.Img variant="top" src={movie.imageURL} />
         <Card.Body>
           <Card.Title>{movie.Title}</Card.Title>
           <Card.Text>{movie.Description}</Card.Text>

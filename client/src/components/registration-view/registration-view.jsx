@@ -48,7 +48,7 @@ export function RegistrationView(props) {
 
         console.log(data);
 
-        window.open('/', '_self');
+        window.open('/client', '_self');
 
       })
 

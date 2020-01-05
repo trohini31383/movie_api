@@ -33,7 +33,7 @@ export function LoginView(props) {
   return (
 
     <Container className='Login-View'>
-      <Form >
+      <Form>
         <h1>Login</h1>
         <Form.Group controlId='formBasicEmail'>
           <Form.Label><b>Email address</b></Form.Label>

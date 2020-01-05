@@ -1,11 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import { connect } from 'react-redux';
-
-
-import { setMovies, setLoggedUser } from '../../actions/actions';
-import MoviesList from '../movies-list/movies-list';
 import { LoginView } from '../login-view/login-view';
 import { RegistrationView } from '../registration-view/registration-view';
 import { MovieCard } from '../movie-card/movie-card';
@@ -22,8 +17,6 @@ export class MainView extends React.Component {
     super(props)
     this.state = {
       movies: [],
-      Email: '',
-      Birthday: '',
       user: null,
       userInfo: {}
 
@@ -40,20 +33,18 @@ export class MainView extends React.Component {
         user: localStorage.getItem('user')
       });
       this.getMovies(accessToken);
-      this.getUser(accessToken);
     }
   }
 
 
   onLoggedIn(authData) {
+    console.log(authData);
     this.setState({
       user: authData.user.Email
     });
-    this.props.setLoggedUser(authData.user);
     localStorage.setItem('token', authData.token);
     localStorage.setItem('user', authData.user.Email);
     this.getMovies(authData.token);
-    this.getUser(authData.token)
   }
 
   getMovies(token) {
@@ -62,25 +53,29 @@ export class MainView extends React.Component {
     })
       .then(response => {
         // Assign the result to the state
-        this.props.setMovies(response.data);
         localStorage.setItem('movies', JSON.stringify(response.data));
+        this.setState({
+          movies: response.data
+        });
       })
       .catch(function (error) {
         console.log(error);
       });
   }
-
   getUser(token) {
+
     axios
 
-      .get(`https://all-about-movies.herokuapp.com/users/${this.state.user}`, {
+      .get('https://all-about-movies.herokuapp.com/users', {
 
         headers: { Authorization: `Bearer ${token}` }
 
       })
 
       .then(response => {
+
         this.props.setLoggedUser(response.data);
+
       })
 
       .catch(error => {
@@ -88,17 +83,6 @@ export class MainView extends React.Component {
         console.log(error);
 
       });
-
-  }
-  updateUser(data) {
-
-    this.setState({
-
-      userInfo: data
-
-    });
-
-    localStorage.setItem('user', data.Email);
 
   }
 
@@ -110,11 +94,6 @@ export class MainView extends React.Component {
     localStorage.removeItem('token');
 
     localStorage.removeItem('user');
-    this.setState({
-
-      user: null
-
-    })
     window.open('/', '_self');
   }
 
@@ -123,19 +102,17 @@ export class MainView extends React.Component {
 
 
   render() {
+    const { movies, user, token, userInfo } = this.state
 
-    const { user, token, userInfo } = this.state
 
-
-    let { movies } = this.props;
     if (!movies) return <div className="main-view" />;
 
     return (
-      <Router basename="/client">
+      <Router>
 
         <Route exact path="/" render={() => {
           if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
-          return <MoviesList movies={movies} />;
+          return movies.map(m => <MovieCard key={m._id} movie={m} />)
         }
         } />
         <Route path="/register" render={() => <RegistrationView />} />
@@ -151,7 +128,7 @@ export class MainView extends React.Component {
         }
         } />
         <Route path="/users/:Email" render={({ match }) => { return <ProfileView userInfo={userInfo} /> }} />
-        <Route path="/update/:Email" render={() => <ProfileUpdate user={user} token={token} updateUser={data => this.updateUser(data)} />}
+        <Route path="/update/:Email" render={() => <ProfileUpdate userInfo={userInfo} user={user} token={token} updateUser={data => this.updateUser(data)} />}
 
         />
         <div>
@@ -170,12 +147,3 @@ export class MainView extends React.Component {
     );
   }
 }
-let mapStateToProps = state => {
-  return {
-    movies: state.movies,
-    setLoggedUser: state.setLoggedUser
-  }
-}
-
-
-export default connect(mapStateToProps, { setMovies, setLoggedUser })(MainView);
