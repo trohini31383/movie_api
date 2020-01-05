@@ -9,7 +9,7 @@ import './movie-card.scss';
 export class MovieCard extends React.Component {
   render() {
 
-    const { movie, onClick } = this.props;
+    const { movie } = this.props;
 
     return (
       <Card style={{ width: '16rem' }}>
@@ -26,16 +26,17 @@ export class MovieCard extends React.Component {
   }
 }
 MovieCard.propTypes = {
+
   movie: PropTypes.shape({
-    Title: PropTypes.string.isRequired,
-    Description: PropTypes.string.isRequired,
-    Genre: PropTypes.shape({
-      Name: PropTypes.string.isRequired
-    }),
-    Director: PropTypes.shape({
-      Name: PropTypes.string.isRequired,
-      Bio: PropTypes.string.isRequired
-    }),
-  }).isRequired,
-  onClick: PropTypes.func.isRequired
+
+    Title: PropTypes.string,
+
+    Description: PropTypes.string,
+
+    ImageUrl: PropTypes.string
+
+  }).isRequired
+
+
+
 };
