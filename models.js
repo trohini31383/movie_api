@@ -11,7 +11,8 @@ var movieSchema = mongoose.Schema({
     Name: String,
     Bio: String
   },
-  Featured: Boolean
+  Featured: Boolean,
+  imageURL: string
 });
 
 var userSchema = mongoose.Schema({
@@ -21,10 +22,10 @@ var userSchema = mongoose.Schema({
   Birthday: Date,
   Favoritemovies: [{ type: mongoose.Schema.Types.ObjectId, ref: "Movie" }]
 });
-userSchema.statics.hashPassword = function(password) {
+userSchema.statics.hashPassword = function (password) {
   return bcrypt.hashSync(password, 10);
 };
-userSchema.methods.validatePassword = function(password) {
+userSchema.methods.validatePassword = function (password) {
   return bcrypt.compareSync(password, this.Password);
 };
 
