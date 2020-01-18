@@ -15,7 +15,7 @@ const Users = Models.User;
   useNewUrlParser: true
 });*/
 mongoose.connect(
-  "mongodb+srv://trohini:Aviabhav@tiger9@myflixdb-1vdbn.mongodb.net/myFlixDB?retryWrites=true&w=majority",
+  "mongodb+srv://trohini:Aviabhav@tiger9@myFlixDB-1vdbn.mongodb.net/myFlixDB?retryWrites=true&w=majority",
   {
     useNewUrlParser: true
   }
