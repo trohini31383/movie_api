@@ -12,7 +12,7 @@ var movieSchema = mongoose.Schema({
     Bio: String
   },
   Featured: Boolean,
-  imageURL: string
+  imageURL: String
 });
 
 var userSchema = mongoose.Schema({
