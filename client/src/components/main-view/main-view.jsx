@@ -163,8 +163,9 @@ export class MainView extends React.Component {
           <Link to={`/users/${user}`}>
             <Button variant="info">Profile</Button>
           </Link>
-          <Button onClick={() => this.onLogout()}><b>Log out</b></Button><p></p><p></p><p></p>
+          <Button onClick={() => this.onLogout()}><b>Log out</b></Button><p></p>
         </div>
+        <p>---------------</p>
 
 
       </Router >
