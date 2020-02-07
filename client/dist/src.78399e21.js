@@ -42086,6 +42086,8 @@ var _react = _interopRequireDefault(require("react"));
 
 var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
 
+var _Card = _interopRequireDefault(require("react-bootstrap/Card"));
+
 require("./genre-view.scss");
 
 var _reactRouterDom = require("react-router-dom");
@@ -42130,19 +42132,31 @@ function (_React$Component) {
     value: function render() {
       var Genre = this.props.Genre;
       if (!Genre) return null;
-      return _react.default.createElement("div", {
-        className: "movie-genre"
-      }, _react.default.createElement("div", {
-        className: "label"
-      }, _react.default.createElement("b", null, "Genre")), _react.default.createElement("div", {
-        className: "value"
-      }, Genre.Name), _react.default.createElement("div", {
-        className: "label"
-      }, _react.default.createElement("b", null, "Description")), _react.default.createElement("div", {
-        className: "value"
-      }, Genre.Description), _react.default.createElement(_reactRouterDom.Link, {
+      /*return (
+        <div className="movie-genre">
+          <div className="label"><b>Genre</b></div>
+          <div className="value">{Genre.Name}</div>
+          <div className="label"><b>Description</b></div>
+          <div className="value">{Genre.Description}</div>
+          <Link to={`/`} >
+            <Button >Back</Button>
+          </Link>
+        </div>
+      );*/
+
+      return _react.default.createElement(_Card.default, {
+        className: "genre-info",
+        style: {
+          width: '18rem'
+        }
+      }, _react.default.createElement(_Card.default.Body, null, _react.default.createElement(_Card.default.Title, {
+        className: "genre-name"
+      }, Genre.Name), _react.default.createElement(_Card.default.Text, null, "Description :  ", _react.default.createElement("br", null), _react.default.createElement("br", null), Genre.Description, _react.default.createElement("br", null)), _react.default.createElement("div", null, _react.default.createElement(_reactRouterDom.Link, {
         to: "/"
-      }, _react.default.createElement(_Button.default, null, "Back")));
+      }, _react.default.createElement(_Button.default, {
+        className: "button-card",
+        variant: "info"
+      }, "Back")))));
     }
   }]);
 
@@ -42150,7 +42164,7 @@ function (_React$Component) {
 }(_react.default.Component);
 
 exports.GenreView = GenreView;
-},{"react":"../../node_modules/react/index.js","react-bootstrap/Button":"../../node_modules/react-bootstrap/esm/Button.js","./genre-view.scss":"components/genre-view/genre-view.scss","react-router-dom":"../../node_modules/react-router-dom/esm/react-router-dom.js"}],"../../node_modules/uncontrollable/esm/utils.js":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","react-bootstrap/Button":"../../node_modules/react-bootstrap/esm/Button.js","react-bootstrap/Card":"../../node_modules/react-bootstrap/esm/Card.js","./genre-view.scss":"components/genre-view/genre-view.scss","react-router-dom":"../../node_modules/react-router-dom/esm/react-router-dom.js"}],"../../node_modules/uncontrollable/esm/utils.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -43805,11 +43819,11 @@ function (_React$Component) {
         to: "/users/".concat(user)
       }, _react.default.createElement(_Button.default, {
         variant: "info"
-      }, "Profile")), _react.default.createElement("p", null), _react.default.createElement(_Button.default, {
+      }, "Profile")), _react.default.createElement(_Button.default, {
         onClick: function onClick() {
           return _this4.onLogout();
         }
-      }, _react.default.createElement("b", null, "Log out"))));
+      }, _react.default.createElement("b", null, "Log out")), _react.default.createElement("p", null)), _react.default.createElement("p", null, "---------------"));
     }
   }]);
 
@@ -43988,7 +44002,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52562" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50179" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
