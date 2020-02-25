@@ -62,6 +62,16 @@ export class ProfileView extends React.Component {
 
   }
 
+  /**
+
+     * gets user information for display and sets the state with it.
+
+     * @param {number} token 
+
+     * @return {object} user information
+
+     */
+
 
 
   getUser(token) {

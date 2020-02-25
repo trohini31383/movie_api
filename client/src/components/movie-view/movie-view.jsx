@@ -12,6 +12,20 @@ export class MovieView extends React.Component {
     this.state = {};
   }
 
+  /**
+
+   * add the current movie to your favorite list
+
+   * @function addtoFavs
+
+   * @param {event} buttonClick
+
+   * @returns {alert} - movie added to favorites
+
+   */
+
+
+
   addtoFavs = () => {
     axios.post(`https://all-about-movies.herokuapp.com/users/${localStorage.getItem('user')}/Movies/${this.props.movie._id}`, {
 

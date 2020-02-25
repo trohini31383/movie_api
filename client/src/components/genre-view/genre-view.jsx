@@ -3,6 +3,18 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import './genre-view.scss';
 import { Link } from "react-router-dom";
+
+/**
+
+ * Genre information of movie
+
+ * @class GenreView
+
+ * @param {string} props - movie.genre
+
+ * @returns {Container} - information about the genre
+
+ */
 export class GenreView extends React.Component {
   constructor() {
     super();

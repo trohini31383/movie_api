@@ -52,6 +52,19 @@ export class MainView extends React.Component {
     });
 
   }
+  /**
+
+   * if correct information is sent to post from login-view
+
+   * @function onLoggedIn
+
+   * @param {object} authData - from login-view
+
+   * @returns {state} 
+
+   * @returns {localStorage}
+
+   */
 
 
   onLoggedIn(authData) {
@@ -64,6 +77,20 @@ export class MainView extends React.Component {
     localStorage.setItem('user', authData.user.Email);
     this.getMovies(authData.token);
   }
+
+  /**ß
+
+   * once logged in submits a get request to get movie list
+
+   * @async
+
+   * @function getMovies
+
+   * @param {number} token 
+
+   * @returns {array} movies
+
+   */
 
   getMovies(token) {
     axios.get('https://all-about-movies.herokuapp.com/movies', {
@@ -80,6 +107,20 @@ export class MainView extends React.Component {
         console.log(error);
       });
   }
+
+  /**
+
+   * 
+
+   * @function getUser
+
+   * @param {string} user 
+
+   * @param {string} token 
+
+   * @returns {object} user information - 2setUsers
+
+   */
   getUser(token) {
 
     axios

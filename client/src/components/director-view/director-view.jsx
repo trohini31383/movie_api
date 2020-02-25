@@ -3,6 +3,18 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import './director-view.scss';
 import { Link } from "react-router-dom";
+
+/**
+
+ * Director information view
+
+ * @class DirectorView
+
+ * @param {string} props - Movie.Director.Name props
+
+ * @returns {DirectorView}
+
+ */
 export class DirectorView extends React.Component {
 
   constructor() {

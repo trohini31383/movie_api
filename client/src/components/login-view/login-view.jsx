@@ -14,6 +14,18 @@ export function LoginView(props) {
   const [Email, setEmail] = useState('');
   const [Password, setPassword] = useState('');
 
+  /**
+
+   * posting Email to /login
+
+   * @function handleSubmit
+
+   * @param {event}
+
+   * @return {object} User information
+
+   */
+
   const handleSubmit = (e) => {
     e.preventDefault();
     axios.post('https://all-about-movies.herokuapp.com/login', {

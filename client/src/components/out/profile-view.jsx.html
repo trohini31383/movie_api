@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: profile-view.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: profile-view.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from 'react';
+
+import axios from 'axios';
+
+
+
+import Button from 'react-bootstrap/Button';
+
+import Card from 'react-bootstrap/Card';
+
+import ListGroup from 'react-bootstrap/ListGroup';
+
+import './profile-view.scss'
+
+
+
+
+
+import { Link } from "react-router-dom";
+
+
+
+export class ProfileView extends React.Component {
+
+
+
+  constructor() {
+
+    super();
+
+    this.state = {
+
+      Name: null,
+
+      Password: null,
+
+      Email: null,
+
+      Birthday: null,
+
+      userData: null,
+
+      Favoritemovies: []
+
+    };
+
+  }
+
+
+
+  componentDidMount() {
+
+
+
+    let accessToken = localStorage.getItem('token');
+
+    if (accessToken !== null) {
+
+      this.getUser(accessToken);
+
+    }
+
+  }
+
+  /**
+
+     * gets user information for display and sets the state with it.
+
+     * @param {number} token 
+
+     * @return {object} user information
+
+     */
+
+
+
+  getUser(token) {
+
+    let Email = localStorage.getItem('user');
+
+    axios.get(`https://all-about-movies.herokuapp.com/users/${Email}`, {
+
+      headers: { Authorization: `Bearer ${token}` }
+
+    })
+
+      .then(response => {
+        console.log(response)
+        this.setState({
+          userData: response.data,
+          Name: response.data.Name,
+          Password: response.data.Password,
+          Email: response.data.Email,
+          Birthday: response.data.Birthday,
+          Favoritemovies: response.data.Favoritemovies
+        });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+  }
+  deletefromFavs(event, Favoritemovie) {
+    event.preventDefault();
+    axios.delete(`https://all-about-movies.herokuapp.com/users/${localStorage.getItem('user')}/Movies/${Favoritemovie}`, {
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+    })
+      .then(response => {
+        this.getUser(localStorage.getItem('token'));
+      })
+      .catch(event => {
+        alert('Oops... something went wrong...');
+      });
+  }
+
+  handleChange(e) {
+
+    this.setState({ [e.target.Email]: e.target.value })
+
+  }
+
+  render() {
+    const { Name, Email, Birthday, Favoritemovies } = this.state;
+
+
+
+    return (
+
+      &lt;Card className="profile-view" style={{ width: '32rem' }}>
+
+
+
+        &lt;Card.Body>
+
+          &lt;Card.Title className="profile-title">My Profile&lt;/Card.Title>
+
+          &lt;ListGroup>
+
+            &lt;ListGroup.Item>Username: {Name}&lt;/ListGroup.Item>
+
+            &lt;ListGroup.Item>Password:******* &lt;/ListGroup.Item>
+
+            &lt;ListGroup.Item>Email: {Email}&lt;/ListGroup.Item>
+
+            &lt;ListGroup.Item>Birthday: {Birthday}&lt;/ListGroup.Item>
+
+            &lt;ListGroup.Item>Favourite Movies:
+
+             &lt;div>
+
+                {Favoritemovies.length === 0 &amp;&amp;
+
+                  &lt;div className="value">No Favourite Movies have been added&lt;/div>
+
+                }
+
+                {Favoritemovies.length > 0 &amp;&amp;
+
+                  &lt;ul>
+
+                    {Favoritemovies.map(Favoritemovie =>
+
+                      (&lt;li key={Favoritemovie}>
+
+                        &lt;p className="Favoritemovies">
+                          {JSON.parse(localStorage.getItem('movies')).find(movie => movie._id === Favoritemovie).Title}
+
+                        &lt;/p>
+
+                        &lt;Link to={`/movies/${Favoritemovie}`}>
+
+                          &lt;Button variant="info">Open&lt;/Button>
+
+                        &lt;/Link>
+                        &lt;Button variant="secondary" onClick={(event) => this.deletefromFavs(event, Favoritemovie)}>
+
+                          Delete
+
+                        &lt;/Button>
+
+
+
+                      &lt;/li>)
+
+                    )}
+
+                  &lt;/ul>
+
+                }
+
+              &lt;/div>
+
+            &lt;/ListGroup.Item>
+
+          &lt;/ListGroup>
+
+          &lt;div >
+
+            &lt;Link to={`/`}>
+
+              &lt;Button>MOVIES&lt;/Button>
+
+            &lt;/Link>
+            &lt;Link to={`/update/:Email`}>
+
+              &lt;Button className="button-update" variant="outline-secondary">Update profile&lt;/Button>
+
+            &lt;/Link>
+
+
+          &lt;/div>
+
+        &lt;/Card.Body>
+
+      &lt;/Card>
+
+    );
+
+  }
+
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Mon Feb 24 2020 12:57:55 GMT-0800 (Pacific Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
